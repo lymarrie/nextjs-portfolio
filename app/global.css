@@ -7,6 +7,7 @@
   color: #fefefe;
 }
 
+
 html {
   min-width: 360px;
 }
@@ -139,3 +140,4 @@ table {
 [data-rehype-pretty-code-title] + pre {
   @apply mt-0 rounded-t-none border-t-0;
 }
+
