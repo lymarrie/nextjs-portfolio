@@ -8,15 +8,15 @@ import { Analytics } from '@vercel/analytics/react';
 export const metadata: Metadata = {
   metadataBase: new URL('https://leerob.io'),
   title: {
-    default: 'Lee Robinson',
-    template: '%s | Lee Robinson',
+    default: 'Luc Yuki Marrie',
+    template: '%s | Luc Yuki Marrie',
   },
-  description: 'Developer, writer, and creator.',
+  description: "Luc's Portfolio Website.",
   openGraph: {
-    title: 'Lee Robinson',
-    description: 'Developer, writer, and creator.',
+    title: 'Luc Yuki Marrie',
+    description: "Luc's Portfolio Website.",
     url: 'https://leerob.io',
-    siteName: 'Lee Robinson',
+    siteName: 'Luc Yuki Marrie',
     locale: 'en_US',
     type: 'website',
   },
@@ -55,7 +55,7 @@ export default function RootLayout({
         GeistMono.variable
       )}
     >
-      <body className="antialiased max-w-2xl mb-40 flex flex-col md:flex-row mx-4 mt-8 lg:mx-auto">
+      <body className="antialiased max-w-2xl mb-40 flex flex-col sm:flex-row mx-8 mt-8 md:mx-auto">
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
           <Sidebar />
           {children}
