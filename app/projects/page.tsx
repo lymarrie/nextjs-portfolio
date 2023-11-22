@@ -12,7 +12,9 @@ export default function ProjectsPage() {
   return (
     <section className="space-y-10">
       <h1 className="block font-semibold mb-8 tracking-tighter white-text-shadow">Projects</h1>
-      
+      <div className="text-xl">
+        <p>🚧 Currently under construction. 🚧</p>
+      </div>
     </section>
   );
 }

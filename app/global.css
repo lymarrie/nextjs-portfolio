@@ -12,11 +12,18 @@ html {
 }
 
 h1 {
-  @apply text-4xl ;
+  @apply text-4xl;
+  text-shadow: 2px 2px 2px rgba(94, 255, 247, 0.8);
 }
 
 h2 {
   @apply text-3xl ;
+  text-shadow: 2px 2px 2px rgba(94, 255, 247, 0.8);
+}
+
+h3 {
+  @apply text-2xl ;
+  text-shadow: 2px 2px 2px rgba(94, 255, 247, 0.8);
 }
 
 .white-shadow {

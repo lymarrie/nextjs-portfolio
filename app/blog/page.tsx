@@ -11,26 +11,27 @@ export default function BlogPage() {
   return (
     <section className="">
       <h1 className="block font-semibold mb-8 tracking-tighter white-text-shadow">Blog</h1>
-      {allBlogs
-        .sort((a, b) => {
-          if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
-            return -1;
-          }
-          return 1;
-        })
-        .map((post) => (
-          <Link
-            key={post.slug}
-            className="flex flex-col space-y-1 mb-4"
-            href={`/blog/${post.slug}`}
-          >
-            <div className="w-full flex flex-col">
-              <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
-                {post.title}
-              </p>
-            </div>
-          </Link>
-        ))}
+      <div className="space-y-3">
+        {allBlogs
+            .sort((a, b) => {
+              if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
+                return -1;
+              }
+              return 1;
+            })
+            .map((post) => (
+                <div>
+                  <a 
+                    key={post.slug}
+                    className="link"
+                    href={`/blog/${post.slug}`}
+                  >
+                    {post.title}
+                  </a>
+                  <p>{post.summary}</p>
+                </div>
+            ))}
+      </div>
     </section>
   );
 }

@@ -9,9 +9,9 @@ export default function Page() {
   return (
     <section className="space-y-12">
       <div>
-        <h1 className="block font-semibold mb-8 tracking-tighter white-text-shadow">Luc Yuki Marrie</h1>
+        <h1 className="block font-semibold mb-8 tracking-tighter ">Luc Yuki Marrie</h1>
         <div className="flex justify-center">
-          <div className="">
+          <div className="quote">
             <p className="hidden sm:block pr-4"><em>"{quoteText}"</em> - <strong>{quoteAuthor}</strong></p>
           </div>
           <Image
@@ -23,8 +23,8 @@ export default function Page() {
           />
         </div>
       </div>
-      <div className="sm:px-10">
-        <p className="block sm:hidden"><em>{quoteText}</em> - {quoteAuthor}</p>
+      <div className="quote-mobile sm:px-10">
+        <p className="block sm:hidden"><em>"{quoteText}"</em> - <strong>{quoteAuthor}</strong></p>
       </div>
       <div>
         <h2 className="font-semibold mb-8 tracking-tighter">Biography</h2>
