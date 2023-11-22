@@ -6,7 +6,7 @@ import Sidebar from './components/sidebar';
 import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://leerob.io'),
+  metadataBase: new URL('https://nextjs-portfolio-ten-neon.vercel.app/'),
   title: {
     default: 'Luc Yuki Marrie',
     template: '%s | Luc Yuki Marrie',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Luc Yuki Marrie',
     description: "Luc's Portfolio Website.",
-    url: 'https://leerob.io',
+    url: 'https://nextjs-portfolio-ten-neon.vercel.app/',
     siteName: 'Luc Yuki Marrie',
     locale: 'en_US',
     type: 'website',
@@ -30,10 +30,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  twitter: {
-    title: 'Lee Robinson',
-    card: 'summary_large_image',
   },
   verification: {
     google: 'eZSdmzAXlLkKhNJzfgwDqWORghxnJ8qR9_CHdAh5-xw',
