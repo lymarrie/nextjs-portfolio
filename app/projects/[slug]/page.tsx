@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Mdx } from 'app/components/mdx';
-import { allBlogs } from 'contentlayer/generated';
+import { allProjects } from 'contentlayer/generated';
 import Balancer from 'react-wrap-balancer';
 import { getViewsCount } from 'lib/metrics';
 import { Suspense } from 'react';
@@ -11,7 +11,7 @@ export const dynamic = 'force-static';
 export async function generateMetadata({
   params,
 }): Promise<Metadata | undefined> {
-  const post = allBlogs.find((post) => post.slug === params.slug);
+  const post = allProjects.find((post) => post.slug === `projects/${params.slug}`);
   if (!post) {
     return;
   }
@@ -80,8 +80,8 @@ function formatDate(date: string) {
   return `${fullDate} (${formattedDate})`;
 }
 
-export default function Blog({ params }) {
-  const post = allBlogs.find((post) => post.slug === `blog/${params.slug}`);
+export default function Project({ params }) {
+  const post = allProjects.find((post) => post.slug === `projects/${params.slug}`);
 
   if (!post) {
     notFound();

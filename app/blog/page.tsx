@@ -24,7 +24,7 @@ export default function BlogPage() {
                   <a 
                     key={post.slug}
                     className="link"
-                    href={`/blog/${post.slug}`}
+                    href={`/${post.slug}`}
                   >
                     {post.title}
                   </a>

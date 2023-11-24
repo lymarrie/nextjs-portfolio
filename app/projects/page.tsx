@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Suspense } from 'react';
+import { allProjects } from 'contentlayer/generated';
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -12,8 +13,26 @@ export default function ProjectsPage() {
   return (
     <section className="space-y-10">
       <h1 className="block font-semibold mb-8 tracking-tighter white-text-shadow">Projects</h1>
-      <div className="text-xl">
-        <p>🚧 Currently under construction. 🚧</p>
+      <div className="space-y-3">
+        {allProjects
+            .sort((a, b) => {
+              if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
+                return -1;
+              }
+              return 1;
+            })
+            .map((post) => (
+                <div>
+                  <a 
+                    key={post.slug}
+                    className="link"
+                    href={`/${post.slug}`}
+                  >
+                    {post.title}
+                  </a>
+                  <p>{post.summary}</p>
+                </div>
+            ))}
       </div>
     </section>
   );
