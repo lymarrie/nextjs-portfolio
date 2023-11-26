@@ -89,11 +89,11 @@ For an [MVP](https://www.productplan.com/glossary/minimum-viable-product/), I de
 
 | Feature | Description | MVP |
 | ---- | ---- | ----------- |
-| `Static Pages` | Pages with static content (e.g. home, wedding schedule, FAQs, etc.). | ✅ |
-| `RSVP (Read)` | Let's user check on the status of their RSVP using first/last name. | ✅ |
-| `RSVP (Write)` | Let's user submit/update their RSVP information. | ❌ |
-| `Registry` | Registry page for that new Espresso machine I've had my eyes on. Doing this from scratch would require me to either build an e-commerce site essentially... so, I'm gonna pass for now. If I were to seriously pursue this, I'd probably use a URL 200 rewrite (or `iframe`) to a page hosted on Zola/The Knot.  | ❌ |
-| `Site Password Protection` | Secure site with basic password protection. I will revisit this in the near future. | ❌ |
+| Static Pages | Pages with static content (e.g. home, wedding schedule, FAQs, etc.). | ✅ |
+| RSVP (Read) | Let's user check on the status of their RSVP using first/last name. | ✅ |
+| RSVP (Write) | Let's user submit/update their RSVP information. | ❌ |
+| Registry | Registry page for that new Espresso machine I've had my eyes on. Doing this from scratch would require me to either build an e-commerce site essentially... so, I'm gonna pass for now. If I were to seriously pursue this, I'd probably use a URL 200 rewrite (or `iframe`) to a page hosted on Zola/The Knot.  | ❌ |
+| Site Password Protection | Secure site with basic password protection. I will revisit this in the near future. | ❌ |
 
 ### Architecture
 
@@ -109,19 +109,24 @@ To support the above feature set, I loosely adhered to this tacky architecture d
 - [Vercel Postgres](https://vercel.com/storage/postgres) (Backend database for all my lovely guests and their RSVPs)
 - [TailwindCSS](https://tailwindcss.com/) (Styling)
 
-Let's break down each component:
+### Building the Static Pages
 
+To kick things off, I scaffolded my project and created a blank canvas for each page using Next.js's [quickstart flow](https://nextjs.org/docs/getting-started/installation), which now uses [App Router](https://nextjs.org/docs/app) by default (as opposed to [Pages Router](https://nextjs.org/docs/pages)).
+
+```zsh
+npx create-next-app@latest
+```
+
+Note that because I'm new to Next.js, everything described below is written exclusively with knowledge of app router only.
 
 #### Pages
 
-Ixxx
+In Next.js, each folder is used to define a "route" (path at which a page is available in the browser). Creating a `page` file under each route is what makes the UI at that path publicly accessible. As such, I was able to create each page of my site using the directory structure below:
 
-```zsh
+```zsh 
 app
-├── accomodations
-│   └── page.tsx
-├── data
-│   └── events.js
+├── accomodations   <-- defines URL
+│   └── page.tsx    <-- UI defined here is exposed at folder name
 ├── faqs
 │   └── page.tsx
 ├── rsvp
@@ -132,15 +137,68 @@ app
 │   └── page.tsx
 ├── wedding-weekend
 │   └── page.tsx
-├── favicon.ico
 ├── globals.css
-├── layout.tsx
-└── page.tsx
+├── layout.tsx        <-- automatically shared layout
+└── page.tsx          <-- home page
 ```
 
-#### Serverless Function
+#### Shared Layout
 
-When a user clicks "RSVP", I need my app to be able to execute custom logic against my DB in a secure way. Hence... the need for a serverless function.
+In Next.js projects, `layout` is a special file. As Next.js defines it:
+
+> A layout is UI that is shared between multiple pages. On navigation, layouts preserve state, remain interactive, and do not re-render. 
+
+Honestly, it's unclear to me if this is a <em>React</em> feature or a <em>Next.js</em> feature (or both, technically, since Next.js is React cloaked in robot armor). Either way though, it's nice because each page in my app will have the same structure... so there's no need to re-render the layout each time a page loads.
+
+When a layout is defined at the `app/` root, it acts as a ["global" layout](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#root-layout-required); applying to all routes in my app automatically. 
+
+This was a neat discovery... to celebrate the momentous occasion, I added a header and footer component right away.
+
+```tsx
+import Navbar from './components/navbar'
+import Footer from './components/footer'
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body className="">
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
+    </html>
+  )
+}
+```
+
+Beyond that, the rest of my initial work was just plain old React development (components, styling, etc.).
+
+### RSVP Page and Database
+
+Next was the RSVP page. Here's how I decided it should work:
+1. A guest can enter their first/last name on the page
+2. If the guest exists in my database, return their current RSVP information (i.e. which events they're currently RSVPed to)
+3. If the guest doesn't exist, return an error 
+
+#### Creating a Database
+
+Back when I was in school, I was the type of student that never used a notebook planner to write down the homework... I'd just memorize it (and that seemed to work 93% of the time).
+
+Unfortunately, because my future wife will probably invite thousands of people to the wedding, there's no way I'll be able to memorize each one (***AND*** the events they're going to) in my head.
+
+Ladies and gentlemen... **enter the database**:
+
+![database gif](https://media.giphy.com/media/pOEbLRT4SwD35IELiQ/giphy.gif)
+
+I had two important questions to answer:
+1. What kind of database should I use? (e.g. relational, NoSQL, key-value store, graph... etc.)
+2. And from which DB provider? 😨
+
+#### Serverless Function
 
 [Vercel's serverless function](https://vercel.com/docs/functions/serverless-functions) feature set made this pretty straightforward.
 
@@ -151,11 +209,6 @@ app
 │       └── route.ts
 ```
 
-
-
-#### Guest Info Database
-
-Created tables 
 
 
 

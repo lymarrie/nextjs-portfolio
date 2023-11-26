@@ -110,7 +110,7 @@ img[alt*=gif] {
 }
 
 .prose h4 {
-  @apply font-medium ;
+  @apply font-medium italic;
   text-shadow: 2px 2px 2px rgba(184, 215, 214, 0.8);
 }
 
