@@ -148,11 +148,11 @@ In Next.js projects, `layout` is a special file. As Next.js defines it:
 
 > A layout is UI that is shared between multiple pages. On navigation, layouts preserve state, remain interactive, and do not re-render. 
 
-Honestly, it's unclear to me if this is a <em>React</em> feature or a <em>Next.js</em> feature (or both, technically, since Next.js is React cloaked in robot armor). Either way though, it's nice because each page in my app will have the same structure... so there's no need to re-render the layout each time a page loads.
+Honestly, it's unclear to me if this is a <strong>React</strong> feature or a <strong>Next.js</strong> feature (or <em>both</em>... since Next.js is React cloaked in robot armor). Regardless, this is great because each page in my app will have the same structure... so there's no need to re-render a fresh layout each time a page loads.
 
-When a layout is defined at the `app/` root, it acts as a ["global" layout](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#root-layout-required); applying to all routes in my app automatically. 
+When a layout is defined at the `app/` root, it's known as the [Root Layout](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#root-layout-required). This is basically a "global" layout; Next.js applies it to all pages in the app automatically.
 
-This was a neat discovery... to celebrate the momentous occasion, I added a header and footer component right away.
+I tossed a `Navbar` and `Footer` component into that bad boy straight away:
 
 ```tsx
 import Navbar from './components/navbar'
@@ -166,9 +166,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="">
-        <Navbar />
+        <Navbar />     <-- 😉
         {children}
-        <Footer />
+        <Footer />     <-- 😉
       </body>
     </html>
   )
@@ -177,26 +177,22 @@ export default function RootLayout({
 
 Beyond that, the rest of my initial work was just plain old React development (components, styling, etc.).
 
-### RSVP Page and Database
+### The RSVP Page and Database
 
 Next was the RSVP page. Here's how I decided it should work:
 1. A guest can enter their first/last name on the page
-2. If the guest exists in my database, return their current RSVP information (i.e. which events they're currently RSVPed to)
-3. If the guest doesn't exist, return an error 
-
-#### Creating a Database
-
-Back in middle school, I never used a notebook planner to keep track of homework... I'd just memorize when it was due (which seemed to work 92% of the time).
-
-Unfortunately, my future wife will probably invite thousands of guests to the wedding, so there's no way I'll be able to keep track of each one.
+2. If the guest exists in my database, return their RSVP information (i.e. the events they're currently RSVPed to)
+3. If the guest doesn't exist, display an error
 
 Ladies and gentlemen... **enter the database**:
 
 ![database gif](https://media.giphy.com/media/pOEbLRT4SwD35IELiQ/giphy.gif)
 
-Before proceeding, I had two important questions to answer:
-1. What ***type of database*** should I use? (e.g. relational, NoSQL, key-value store, graph... etc.)
-2. And from ***which DB provider***? 😨
+#### Picking a Database
+
+For this segment of the project, I had two important questions to answer:
+1. What ***type of database*** should I use?  🤔 (e.g. relational, NoSQL, key-value store, graph... etc.)
+2. And from ***which database provider***? 😨
 
 I've played around with [Supabase](https://supabase.com/) before, which was a great experience. Unfortunately they "pause" your DBs after a rather short period of inactivity... so I skipped out on them for now. (I will probably use them for my next project though).
 
@@ -207,9 +203,8 @@ Before I got much further in my search, I came across [Vercel's Storage product]
 > - **[Vercel Blob](https://vercel.com/docs/storage/vercel-blob)**: Large file storage<br />
 > - **[Vercel Edge Config](https://vercel.com/docs/storage/edge-config)**: Global, low-latency data store<br />
 > 
-> This page will help you choose the right storage product for your use case.
 
-Given I was already using Next.js and Vercel for everything else in this project, it was compelling to see they also had a storage product. But wait, it gets better... the 2nd paragraph on their product page was dedicated to ***[CHOOSING a storage product](https://vercel.com/docs/storage#choosing-a-storage-product)*** 😱:
+Given I was already using Next.js and Vercel, it was compelling to see they also had a storage product. But wait, it gets better... the product page had an entire paragraph dedicated to ***[CHOOSING a database type](https://vercel.com/docs/storage#choosing-a-storage-product)*** 😱:
 
 >Choosing the correct storage solution depends on your needs for latency, durability, and consistency, among many other considerations.<br />
 >
@@ -224,6 +219,13 @@ Given I was already using Next.js and Vercel for everything else in this project
 
 After a literal 5-second skim of the table, the obvious way to go was [Postgres](https://vercel.com/docs/storage#vercel-postgres) (thank you Vercel for your pristine documentation).
 
+#### Creating the Database
+
+First, I needed to create a database in the Vercel platform. To do so, I leveraged their (somewhat bare bones) UI for running queries:
+
+![Vercel Query - Create Tables](https://res.cloudinary.com/dtgeenuny/image/upload/v1701029990/vercel-create-tables_trxkl5.png)
+
+Because I'm a spineless caterpillar, I asked [ChatGPT](https://chat.openai.com/auth/login) to construct me a relational table schema for guests, events, and RSVPs 🥴. Based on its response, I created the following tables below:
 
 ```sql
 CREATE TABLE guests (
@@ -251,26 +253,169 @@ CREATE TABLE rsvps (
 );
 ```
 
-#### Serverless Function
+I inserted some `guest`, `event`, and `rsvp` records:
 
-[Vercel's serverless function](https://vercel.com/docs/functions/serverless-functions) feature set made this pretty straightforward.
+```sql
+INSERT INTO guests (first_name, last_name, email, num_of_guests, rsvp_message)
+VALUES
+  ('Luc', 'Marrie', 'luc@marrie.com', 2, 'I''m getting married?'), -- Guest 1
+  ('John', 'Doe', 'john.doe@example.com', 2, 'So excited!'), -- Guest 2
+  ('Jane', 'Smith', 'jane.smith@example.com', 2, 'Congrats!') -- Guest 3
+;
+
+INSERT INTO events (name, description, datetime, location)
+VALUES
+  ('Welcome Dinner', null, '2030-09-20 17:00:00', null), -- Event 1
+  ('Wedding', null, '2030-09-21 16:30:00', null), -- Event 2
+  ('Farewell Brunch', null, '2030-09-22 10:00:00', null) -- Event 3
+;
+
+INSERT INTO rsvps (guest_id, event_id, response)
+VALUES
+  (1, 1, true),  -- Luc Marrie RSVPs yes to Welcome Dinner
+  (1, 2, true),  -- Luc Marrie RSVPs yes to Wedding
+  (1, 3, true),  -- Luc Marrie RSVPs yes to Farewell Brunch
+  (2, 1, true),  -- John Doe RSVPs yes to Welcome Dinner
+  (2, 2, true),  -- John Doe RSVPs yes to Wedding
+  (2, 3, false),  -- John Doe RSVPs no to Farewell Brunch
+  (3, 1, false),  -- Jane Smith RSVPs no to Welcome Dinner
+  (3, 2, false),  -- Jane Smith RSVPs yes to Wedding
+  (3, 3, true)  -- Jane Smith RSVPs yes to Farewell Brunch
+;
+```
+
+Voilà - we were ready to go.
+
+![Vercel Query - Select Guests](https://res.cloudinary.com/dtgeenuny/image/upload/v1701029990/vercel-insert-records_fgstlv.png)
+
+#### Local Development
+
+Now that the tables were set up, I could hook up the database to the frontend.
+
+I used Vercel's Postgres [quickstart guide](https://vercel.com/docs/storage/vercel-postgres/quickstart) to get going. They weren't lying when they said "quick" start... considering how much of a noob I am, it was genuinely very easy for me to get started.
+
+With a single command, I could fetch all necessary environment variables from Vercel and save them to a file called `.env.development.local`.:
 
 ```zsh
-app
-├── api
-│   └── find-invitation
-│       └── route.ts
+vercel env pull .env.development.local
 ```
 
+From there, I could ***instantly*** interact with my database using a combination of their [SDK](https://vercel.com/docs/storage/vercel-postgres/sdk#sql) and serverless functions. Refer to the code block below, which shows a simple query against my `guests` table.
 
-
-
-
-
-
+```typescript
+// app/api/find-invitation/route.ts
+import { sql } from '@vercel/postgres';
+import { NextResponse } from 'next/server';
+ 
+export async function GET(request: Request) {
+  try {
+    const result =
+      await sql`SELECT * FROM guests;`;
+    return NextResponse.json({ result }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+  }
+}
 ```
-lmarrie@lmarrie-mbp wedding-website % vercel env pull .env.development.local
-Vercel CLI 32.5.6
-> Downloading `development` Environment Variables for Project wedding-website
-✅  Created .env.development.local file  [132ms]
+
+Feel free to examine my finished serverless function in [GitHub](https://github.com/lymarrie/wedding-website/blob/main/app/api/find-invitation/route.ts). To summarize how it works:
+1. When a guest clicks "Find Your Invitation", my app calls the serverless function with first/last name as query params:
+```javascript
+const response = await fetch(`/api/find-invitation?firstName=${firstName}&lastName=${lastName}`);
 ```
+2. The function extracts the first/last name, and makes the following SQL query to find the guest `id`
+```typescript
+SELECT *
+FROM guests
+WHERE 
+    first_name ILIKE ${firstName}
+    AND last_name ILIKE ${lastName}
+;
+```
+3. When a guest is found, the function queries the `events` table and joins it to the `rsvps` table based using the guest `id`
+```sql
+SELECT 
+    events.id,
+    events.name,
+    events.description,
+    events.datetime,
+    events.location,
+    rsvps.response
+FROM events
+LEFT JOIN rsvps 
+ON 
+    events.id = rsvps.event_id 
+    AND rsvps.guest_id = ${guestId}
+;
+```
+
+As such, the serverless function is able to return the following JSON back to my frontend: 
+```json
+{
+    "guest": {
+        "id": 2,
+        "first_name": "John",
+        "last_name": "Doe",
+        "number_of_guests": 2,
+        "rsvp_message": "My wife and I are so excited to see you get married... feels like just yesterday I taught you how to write serverless functions"
+    },
+    "rsvps": [
+        {
+            "id": 1,
+            "name": "Welcome Dinner",
+            "description": null,
+            "datetime": "2030-09-20T17:00:00.000Z",
+            "location": null,
+            "response": true
+        },
+        {
+            "id": 2,
+            "name": "Wedding",
+            "description": null,
+            "datetime": "2030-09-21T16:30:00.000Z",
+            "location": null,
+            "response": true
+        },
+        {
+            "id": 3,
+            "name": "Farewell Brunch",
+            "description": null,
+            "datetime": "2030-09-22T10:00:00.000Z",
+            "location": null,
+            "response": true
+        }
+    ]
+}
+```
+
+Which can then be easily leveraged in my TSX component, like so:
+
+![John Doe RSVP](https://res.cloudinary.com/dtgeenuny/image/upload/v1701033539/john-doe-rsvp_aynrey.png)
+
+
+
+### Production Deployment
+
+When I created my Vercel Postgres database earlier, I had to connect it to a Vercel project (aka site).
+
+Upon connection, Vercel automatically ensured all necessary Postgres environment variables were made available to website's `production`, `preview`, and `dev` environments:
+
+![Vercel Database Project](https://res.cloudinary.com/dtgeenuny/image/upload/v1701033821/vercel-postgres-project_spgdzc.png)
+
+## Closing Thoughts
+
+I was extremely impressed with Vercel's developer experience... it genuinely was so easy getting a database stood up and hooked up to my application within minutes.
+
+The only things I'm left wondering about are...
+1. **Is there an easy way to protect a site behind a password using Next.js and Vercel?**
+2. **Is it kind of odd that I'm using SQL directly via my serverless function, instead of some sort of API?** <br />
+    
+    I suppose, given the size of my site, I'm not aiming for blazing fast speed... However, I can see why this makes [Supabase](https://supabase.com/docs/guides/api) a compelling choice for develompent, as they auto-generate APIs for you right OOTB.
+
+3. **Registrys...** <br />
+
+    How the heck is that gonna work? I wonder if I could just create a registry using Zola or The Knot... and then hook that up to my site manually. If anyone knows, please shoot me a DM. Or, leave a comment... once I make it possible to leave comments on my blog posts 😉
+
+Thank you very much for reading, and I hope you enjoy the wedding website.
+
+![Peace gif](https://media.giphy.com/media/Ru9sjtZ09XOEg/giphy.gif)
