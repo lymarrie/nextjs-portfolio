@@ -26,6 +26,11 @@ h3 {
   text-shadow: 2px 2px 2px rgba(94, 255, 247, 0.8);
 }
 
+h4 {
+  @apply text-xl;
+  text-shadow: 2px 2px 2px rgba(94, 255, 247, 0.8);
+}
+
 .white-shadow {
   box-shadow: 0 0 30px rgba(183, 255, 248, 0.8);
 }
@@ -70,7 +75,7 @@ h3 {
 }
 
 .prose code {
-  @apply text-neutral-800 dark:text-neutral-200 px-1 py-0.5 border border-neutral-100 dark:border-neutral-800 rounded-lg bg-neutral-100 dark:bg-neutral-900;
+  @apply text-neutral-800 dark:text-cyan-400 px-1 py-0.5 border border-neutral-100 dark:border-neutral-800 rounded-lg bg-neutral-100 dark:bg-neutral-900;
 }
 
 .prose pre code {
@@ -81,14 +86,34 @@ h3 {
 
 .prose img {
   /* Don't apply styles to next/image */
-  @apply m-0;
+  @apply m-0 rounded-lg shadow-gray-600 shadow-md;
 }
 
-.prose h2,
-h3,
-h4 {
-  @apply font-semibold;
+img[alt*=gif] { 
+  @apply mx-auto w-1/2; 
 }
+
+/* img[alt*="Website -"] {
+  @apply mx-auto md:w-4/5;
+} */
+
+.prose td {
+  @apply whitespace-normal;
+}
+
+.prose h2 {
+  @apply text-3xl font-semibold;
+}
+
+.prose h3 {
+  @apply text-2xl font-semibold;
+}
+
+.prose h4 {
+  @apply font-medium ;
+  text-shadow: 2px 2px 2px rgba(184, 215, 214, 0.8);
+}
+
 
 .prose > :first-child {
   /* Override removing top margin, causing layout shift */
@@ -124,10 +149,11 @@ input[type='email'] {
 }
 
 table {
-  display: block;
-  max-width: fit-content;
-  overflow-x: auto;
-  white-space: nowrap;
+  @apply mx-auto ;
+  /* display: block; */
+  /* max-width: fit-content; */
+  /* overflow-x: auto; */
+  /* white-space: nowrap; */
 }
 
 .prose .callout > p {
