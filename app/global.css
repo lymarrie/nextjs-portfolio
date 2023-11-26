@@ -90,7 +90,7 @@ h4 {
 }
 
 img[alt*=gif] { 
-  @apply mx-auto w-1/2; 
+  @apply md:mx-auto md:w-1/2; 
 }
 
 /* img[alt*="Website -"] {
