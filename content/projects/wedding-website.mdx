@@ -186,17 +186,70 @@ Next was the RSVP page. Here's how I decided it should work:
 
 #### Creating a Database
 
-Back when I was in school, I was the type of student that never used a notebook planner to write down the homework... I'd just memorize it (and that seemed to work 93% of the time).
+Back in middle school, I never used a notebook planner to keep track of homework... I'd just memorize when it was due (which seemed to work 92% of the time).
 
-Unfortunately, because my future wife will probably invite thousands of people to the wedding, there's no way I'll be able to memorize each one (***AND*** the events they're going to) in my head.
+Unfortunately, my future wife will probably invite thousands of guests to the wedding, so there's no way I'll be able to keep track of each one.
 
 Ladies and gentlemen... **enter the database**:
 
 ![database gif](https://media.giphy.com/media/pOEbLRT4SwD35IELiQ/giphy.gif)
 
-I had two important questions to answer:
-1. What kind of database should I use? (e.g. relational, NoSQL, key-value store, graph... etc.)
-2. And from which DB provider? 😨
+Before proceeding, I had two important questions to answer:
+1. What ***type of database*** should I use? (e.g. relational, NoSQL, key-value store, graph... etc.)
+2. And from ***which DB provider***? 😨
+
+I've played around with [Supabase](https://supabase.com/) before, which was a great experience. Unfortunately they "pause" your DBs after a rather short period of inactivity... so I skipped out on them for now. (I will probably use them for my next project though).
+
+Before I got much further in my search, I came across [Vercel's Storage product](https://vercel.com/docs/storage); front-and-center on their website:
+>Vercel offers a suite of managed, serverless storage products that integrate with your frontend framework.<br />
+> - **[Vercel KV](https://vercel.com/docs/storage/vercel-kv)**: Durable Redis<br />
+> - **[Vercel Postgres](https://vercel.com/docs/storage/vercel-postgres)**: Serverless SQL<br />
+> - **[Vercel Blob](https://vercel.com/docs/storage/vercel-blob)**: Large file storage<br />
+> - **[Vercel Edge Config](https://vercel.com/docs/storage/edge-config)**: Global, low-latency data store<br />
+> 
+> This page will help you choose the right storage product for your use case.
+
+Given I was already using Next.js and Vercel for everything else in this project, it was compelling to see they also had a storage product. But wait, it gets better... the 2nd paragraph on their product page was dedicated to ***[CHOOSING a storage product](https://vercel.com/docs/storage#choosing-a-storage-product)*** 😱:
+
+>Choosing the correct storage solution depends on your needs for latency, durability, and consistency, among many other considerations.<br />
+>
+> To help you choose, we've created a table below to summarize the benefits of each storage option in relation to each other:
+
+| Product | Reads | Writes | Use Case | Limits |
+| ---- | ---- | ---- | ------- | ---- |
+| [KV](https://vercel.com/docs/storage/vercel-kv) | Fast | Milliseconds | Key/value and JSON data | [Learn more](https://vercel.com/docs/storage/vercel-kv/limits) |
+| [Postgres](https://vercel.com/docs/storage/vercel-postgres) | Fast | Milliseconds | Structured, relational data | [Learn more](https://vercel.com/docs/storage/vercel-postgres/limits) |
+| [Blob](https://vercel.com/docs/storage/vercel-blob) | Fast | Milliseconds | Large, content-addressable files ("blobs") | [Learn more](https://vercel.com/docs/storage/vercel-blob/usage-and-pricing) |
+| [Edge Config](https://vercel.com/docs/storage/edge-config) | Ultra-fast | Milliseconds | Runtime configuration (e.g., feature flags) | [Learn more](https://vercel.com/docs/storage/edge-config/edge-config-limits) |
+
+After a literal 5-second skim of the table, the obvious way to go was [Postgres](https://vercel.com/docs/storage#vercel-postgres) (thank you Vercel for your pristine documentation).
+
+
+```sql
+CREATE TABLE guests (
+  id SERIAL PRIMARY KEY,
+  first_name VARCHAR(255),
+  last_name VARCHAR(255),
+  email VARCHAR(255),
+  num_of_guests INT,
+  rsvp_message VARCHAR(255)
+);
+
+CREATE TABLE events (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255),
+  description TEXT,
+  datetime TIMESTAMP WITH TIME ZONE,
+  location VARCHAR(255)
+);
+
+CREATE TABLE rsvps (
+  id SERIAL PRIMARY KEY,
+  guest_id INT REFERENCES guests(id),
+  event_id INT REFERENCES events(id),
+  response BOOLEAN
+);
+```
 
 #### Serverless Function
 

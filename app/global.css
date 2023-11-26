@@ -114,6 +114,9 @@ img[alt*=gif] {
   text-shadow: 2px 2px 2px rgba(184, 215, 214, 0.8);
 }
 
+.prose blockquote {
+  @apply bg-gray-900 py-1;
+}
 
 .prose > :first-child {
   /* Override removing top margin, causing layout shift */
