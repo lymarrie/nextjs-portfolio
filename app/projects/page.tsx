@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <section className="space-y-10">
+    <section className="">
       <h1 className="block font-semibold mb-8 tracking-tighter white-text-shadow">Projects</h1>
       <div className="space-y-3">
         {allProjects

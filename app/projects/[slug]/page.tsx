@@ -100,9 +100,9 @@ export default function Project({ params }) {
         <Balancer>{post.title}</Balancer>
       </h1>
       <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
-        <p className="text-sm text-neutral-400 dark:text-neutral-400">
+        {/* <p className="text-sm text-neutral-400 dark:text-neutral-400">
           {formatDate(post.publishedAt)}
-        </p>
+        </p> */}
       </div>
       <Mdx code={post.body.code} />
     </section>
