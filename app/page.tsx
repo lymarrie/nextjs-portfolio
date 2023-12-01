@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { allBlogs } from 'contentlayer/generated';
+import { allProjects } from 'contentlayer/generated';
 import Link from 'next/link';
 
 const quoteText = "Some people want it to happen, some wish it would happen, others make it happen.";
@@ -32,6 +33,30 @@ export default function Page() {
           <p>I'm a product manager at <a href="https://www.yext.com/" className="link" target="_blank">Yext</a>, based out of  🗽 New York City.</p>
           <p>At Yext, I oversee product development for <a href="https://www.yext.com/platform/pages" className="link" target="_blank">Pages</a>: a full-stack development framework for enterprise web applications.</p>
           <p>Outside of work, I'm a freelance frontend developer, photographer 📸, and soccer hooligan.</p>
+        </div>
+      </div>
+      <div>
+        <h2 className="font-semibold mb-8 tracking-tighter">Projects</h2>
+        <div className="space-y-3">
+          {allProjects
+          .sort((a, b) => {
+            if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
+              return -1;
+            }
+            return 1;
+          })
+          .map((project) => (
+              <div>
+                <a 
+                  key={project.slug}
+                  className="link"
+                  href={`${project.slug}`}
+                >
+                  {project.title}
+                </a>
+                <p>{project.summary}</p>
+              </div>
+          ))}
         </div>
       </div>
       <div>
