@@ -75,7 +75,7 @@ h4 {
 }
 
 .prose code {
-  @apply text-neutral-800 dark:text-cyan-400 px-1 py-0.5 border border-neutral-100 dark:border-neutral-800 rounded-lg bg-neutral-100 dark:bg-neutral-900;
+  @apply text-cyan-400 px-1 py-0.5 border border-neutral-800 rounded-lg bg-neutral-900;
 }
 
 .prose pre code {
@@ -89,8 +89,12 @@ h4 {
   @apply m-0 rounded-lg shadow-gray-600 shadow-md;
 }
 
-img[alt*=gif] { 
-  @apply md:mx-auto md:w-1/2; 
+img[alt*=normalgif] { 
+  @apply mx-auto; 
+}
+
+img[alt*=halfgif] { 
+  @apply mx-auto md:w-1/2; 
 }
 
 /* img[alt*="Website -"] {

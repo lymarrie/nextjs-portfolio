@@ -1,0 +1,172 @@
+---
+title: "Scroll Animations"
+publishedAt: '2023-12-3'
+summary: 'Subtle scroll animations using the Intersection Observer API'
+---
+
+## Overview
+
+If there's one thing that separates the web dev pupil from the sensei... it's knowing how to add highly unnecessary CSS animations to your site.
+
+{/* ![normalgif](https://media.giphy.com/media/9u4PtvArRfITr30tev/giphy.gif) */}
+
+For this project, I specifically decided to teach myself "scroll" animations; for example, make certain headings fade-in from the left, or from the top.
+
+Low and behold: https://animations-lymarrie.vercel.app/
+
+![normalgif](https://res.cloudinary.com/dtgeenuny/image/upload/v1701651163/scroll-animation_bpar8p.gif)
+
+## How is this possible? 🤔
+
+To accomplish this, I used two tools:
+1. [The Intersection Observation API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+2. `react-intersection-observer` ([npm](https://www.npmjs.com/package/react-intersection-observer))
+
+### The Intersection Observation API
+
+The [Intersection Observation API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) provides a way to asynchronously observe changes in the intersection of a target element (HTML tag on my page) with an ancestor element or with a top-level document's viewport.
+
+This is a native web API, and is supported natively across all modern browsers (accounting for [96.94% of global traffic](https://caniuse.com/?search=IntersectionObserver)); making it a safe choice for CSS animations.
+
+More specifically, this API allows you to configure a [callback](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#intersection_change_callbacks) that is called when either of these circumstances occur:
+1. A target element intersects either the device's viewport or a specified element.
+2. The first time the observer is initially asked to watch a target element.
+
+Based on when an event occurs, all that must be done to create the animation effect is to conditionally alter the target's CSS. This is basically a <strong>before vs. after</strong> scenario. 
+
+Using the css below, here's how the logic works:
+- If target **isn't visible**
+    - Apply `fadeIn-hidden` CSS 
+- If **is visible** (which, triggers the Intersection Observer callback)
+    - Apply `fadeOut-hidden` CSS
+
+```css
+.fadeIn-hidden {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateY(-20%);
+  transition: all 1s;
+}
+
+.fadeIn-show {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+```
+
+In earlier GIF, that CSS specifically is what makes my face fly in along the y-axis.
+
+
+### react-intersection-observer
+
+Because I've been using Next.js for most of my development projects, I decided to search for a React wrapper of the Intersection Observation API.
+
+To no surprise, one already existed called `react-interactive-observer`, which at the time of writing gets [1.4 million downloads a week](https://www.npmjs.com/package/react-intersection-observer).
+
+Here's how the wrapper works:
+1. `useInView` hook
+    <br />This wrapper exports a hook, `useInView` that creates a `ref` and `inView` boolean.
+    ```typescript
+    import { useInView } from 'react-intersection-observer';
+
+    const { ref, inView } = useInView({
+        threshold: 0,
+    });
+    ```
+2. Attach `ref`
+    <br />The `ref` goes on whatever element you want to observe
+    ```tsx
+    <div ref={ref} className={`fadeIn-hidden ${styling}`}>
+      {children}
+    </div>
+    ```
+3. Observe `inView` changes
+    <br />When `inView` evaluates to true, set CSS to `fadeIn-show`
+    ```typescript
+    const styling = inView ? `fadeIn-show` : '';
+    ```
+
+Tying it all together, here's my finished component ([GitHub source code](https://github.com/lymarrie/animations/blob/main/app/components/AnimateOnScroll.tsx)):
+
+```tsx
+"use client"
+import React, { ReactNode } from 'react';
+import { useInView } from 'react-intersection-observer';
+
+interface AnimateOnScrollProps {
+    children: ReactNode;
+    hiddenClass?: string;
+    showClass?: string;
+  }
+
+const AnimateOnScroll: React.FC<AnimateOnScrollProps> = ({
+    children,
+    hiddenClass = 'fadeIn-hidden',
+    showClass = 'fadeIn-show',
+  }) => {
+  const { ref, inView, entry } = useInView({
+    threshold: 0,
+  });
+
+  const styling = inView ? showClass : '';
+
+  return (
+    <div ref={ref} className={`${hiddenClass} ${styling}`}>
+      {children}
+    </div>
+  );
+}
+
+export default AnimateOnScroll;
+```
+
+What's nice about this approach is that I can override the default styling as necessary. Refer to the example below, where I pass in different hide vs. show CSS classes:
+
+```tsx
+// Default styling
+<AnimateOnScroll>
+    <h1>Luc Marrie</h1>
+    <Image ... />
+</AnimateOnScroll>
+
+// Overriden styling
+<AnimateOnScroll 
+    hiddenClass="fadeFromLeft-hidden"
+    showClass="fadeFromLeft-show"
+>
+    <h2>Digital Artist 🎨</h2>
+</AnimateOnScroll>
+```
+
+```css
+/* Set position left on the x-axis */
+.fadeFromLeft-hidden {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateX(-100%);
+  transition: all 0.8s;
+}
+
+.fadeFromLeft-show{
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0);
+}
+```
+
+As such, I'm able to achieve a left-to-right animation using `translateX()`:
+
+![normalgif](https://res.cloudinary.com/dtgeenuny/image/upload/v1701656114/x-axis-scroll_ohicjo.gif)
+
+## Closing Thoughts
+
+It was *much* easier to implement scroll animations than I thought... thankfully, many professionals before me have come and created game-changing tools like the Intersection Observation API, and the React wrapper.
+
+Before these tools existed, I truly cannot imagine how people were able to accurately detect target intersections... presumably they were doing all these now OOTB calculations from scratch. 
+
+Once again, I tip my cap to all the brilliant minds who came before me. Thanks to them, we live in a world where so many complex problems can be solved with simple configuration now.
+
+In terms of next steps:
+1. If it's not already implemented on the rest of my website... you should see some of these animations soon 😉
+2. As a roadmap item to this project, I want to implement a "staggered" effect using child elements. For example, if a target has three `<p>` tags in it, I want each paragraph to come in half a second after the previous one. This idea is inspired by [Fireship](https://youtu.be/T33NN_pPeNI?si=56S_pfC9QqAwZnJ5&t=266).
