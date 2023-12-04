@@ -1,7 +1,5 @@
 import React from 'react';
 import NavItem from './nav-item';
-import { Fragment, Suspense } from 'react';
-import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react';
 import AnimateOnScroll from './AnimateOnScroll';
 
 export default function Footer() {
