@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   return (
-    <section className="" style={{minHeight:"50vh"}}>
+    <section className="" style={{minHeight:"40vh"}}>
       <AnimateOnScroll>
         <h1 className="block font-semibold mb-8 tracking-tighter white-text-shadow">Blog</h1>
         <div className="space-y-3">

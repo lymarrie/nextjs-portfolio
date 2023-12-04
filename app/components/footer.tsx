@@ -17,19 +17,10 @@ export default function Footer() {
   };
   
   const navigation = {
-    main: [
-      { name: "Home", href: "/" },
-      { name: "Wedding Weekend", href: "/wedding-weekend" },
-      { name: "TBD and Luc", href: "/tbd-and-luc" },
-      { name: "FAQs", href: "/faqs" },
-      { name: "Travel", href: "/travel" },
-      { name: "Accomodations", href: "/accomodations" },
-      { name: "RSVP", href: "/rsvp" },
-    ],
     social: [
       {
         name: 'GitHub',
-        href: 'https://github.com/lymarrie/wedding-website',
+        href: 'https://github.com/lymarrie/nextjs-portfolio',
         icon: (props) => (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
             <path
@@ -44,7 +35,7 @@ export default function Footer() {
   }
   
     return(
-    <AnimateOnScroll hiddenClass="space-y-12 fadeFromLeft-hidden" showClass="fadeFromLeft-show">
+    <AnimateOnScroll hiddenClass="fadeFromLeft-hidden" showClass="fadeFromLeft-show">
       <footer className="mt-32">
         {/* <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8"> */}
           {/* <nav className="-mb-6 columns-2 space-y-2 md:flex md:justify-center md:text-center md:space-x-6 md:space-y-0 lg:space-x-12" aria-label="Footer">
@@ -54,9 +45,9 @@ export default function Footer() {
             })} 
           </Suspense>
           </nav> */}
-          <div className="mt-10 pt-6 md:flex mx-auto justify-center">
+          <div className="">
             {navigation.social.map((item) => (
-              <a key={item.name} href={item.href} target="_blank" className="flex  space-x-5 text-white-700 hover:text-cyan-200">
+              <a key={item.name} href={item.href} target="_blank" className="transition-all flex  space-x-4 text-white-700 hover:text-cyan-200">
                 <span className="sr-only">{item.name}</span>
                 <item.icon className="h-6 w-6" aria-hidden="true" />
                 <div>View Source Code</div>
