@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { GeistSans, GeistMono } from 'geist/font';
 import Sidebar from './components/sidebar';
 import { Analytics } from '@vercel/analytics/react';
+import Footer from './components/footer';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://nextjs-portfolio-ten-neon.vercel.app/'),
@@ -56,6 +57,7 @@ export default function RootLayout({
           <Sidebar />
           {children}
           <Analytics />
+          <Footer />
         </main>
       </body>
     </html>

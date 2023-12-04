@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <main className="">
+    <section className="" style={{minHeight:"50vh"}}>
       <AnimateOnScroll>
         <h1 className="block font-semibold mb-8 tracking-tighter white-text-shadow">Projects</h1>
         <div className="space-y-3">
@@ -37,6 +37,6 @@ export default function ProjectsPage() {
               ))}
         </div>
       </AnimateOnScroll>
-    </main>
+    </section>
   );
 }
