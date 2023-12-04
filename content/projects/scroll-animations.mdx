@@ -32,7 +32,7 @@ More specifically, this API allows you to configure a [callback](https://develop
 1. A target element intersects either the device's viewport or a specified element.
 2. The first time the observer is initially asked to watch a target element.
 
-Based on when an event occurs, all that must be done to create the animation effect is to conditionally alter the target's CSS. This is basically a <strong>before vs. after</strong> scenario. 
+Based on when an event occurs, all that must be done to create the animation effect is to conditionally alter the target's CSS, based on two options: <strong>invisibility vs. visibility</strong>. 
 
 Using the css below, here's how the logic works:
 - If target **isn't visible**
@@ -41,6 +41,7 @@ Using the css below, here's how the logic works:
     - Apply `fadeOut-hidden` CSS
 
 ```css
+/* Make HTML invisible, add blur, set at y=-20% */
 .fadeIn-hidden {
   opacity: 0;
   filter: blur(5px);
@@ -48,6 +49,7 @@ Using the css below, here's how the logic works:
   transition: all 1s;
 }
 
+/* Make HTML visible, remove blur, set at y=0 */
 .fadeIn-show {
   opacity: 1;
   filter: blur(0);
@@ -55,14 +57,14 @@ Using the css below, here's how the logic works:
 }
 ```
 
-In earlier GIF, that CSS specifically is what makes my face fly in along the y-axis.
+In the earlier GIF, these CSS classes specifically are what make my face fly in along the y-axis.
 
 
 ### react-intersection-observer
 
-Because I've been using Next.js for most of my development projects, I decided to search for a React wrapper of the Intersection Observation API.
+To date, I've been using Next.js for all of my development projects, so I decided to search for a React wrapper of the Intersection Observation API.
 
-To no surprise, one already existed called `react-interactive-observer`, which at the time of writing gets [1.4 million downloads a week](https://www.npmjs.com/package/react-intersection-observer).
+To no surprise, one already exists called `react-interactive-observer`, which at the time of writing gets [1.4 million downloads a week](https://www.npmjs.com/package/react-intersection-observer).
 
 Here's how the wrapper works:
 1. `useInView` hook
