@@ -14,7 +14,7 @@ const AnimateOnScroll: React.FC<AnimateOnScrollProps> = ({
     showClass = 'fadeIn-show',
   }) => {
   const { ref, inView, entry } = useInView({
-    threshold: 0.3,
+    threshold: 0.4,
     triggerOnce: true
   });
 
