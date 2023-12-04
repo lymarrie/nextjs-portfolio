@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
           flexDirection: 'column',
           alignItems: 'flex-start',
           justifyContent: 'center',
-          backgroundImage: 'url(https://nextjs-portfolio-ten-neon.vercel.app/luc-space-pic.png)',
+          backgroundImage: 'url(https://lucmarrie.com/hiroshi-nagai-5.png)',
         }}
       >
         <div

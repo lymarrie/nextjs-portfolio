@@ -7,7 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 import Footer from './components/footer';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://nextjs-portfolio-ten-neon.vercel.app/'),
+  metadataBase: new URL('https://lucmarrie.com/'),
   title: {
     default: 'Luc Yuki Marrie',
     template: '%s | Luc Yuki Marrie',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Luc Yuki Marrie',
     description: "Luc's Portfolio Website.",
-    url: 'https://nextjs-portfolio-ten-neon.vercel.app/',
+    url: 'https://lucmarrie.com/',
     siteName: 'Luc Yuki Marrie',
     locale: 'en_US',
     type: 'website',
@@ -31,10 +31,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    google: 'eZSdmzAXlLkKhNJzfgwDqWORghxnJ8qR9_CHdAh5-xw',
-    yandex: '14d2e73487fa6c71',
   },
 };
 
