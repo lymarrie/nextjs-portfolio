@@ -1,13 +1,43 @@
 import Image from 'next/image';
-import { allBlogs } from 'contentlayer/generated';
-import { allProjects } from 'contentlayer/generated';
 import Link from 'next/link';
 import AnimateOnScroll from './components/AnimateOnScroll';
+import client from "../utils/contentful";
 
 const quoteText = "Some people want it to happen, some wish it would happen, others make it happen.";
 const quoteAuthor = "Michael Jordan 🏀";
 
-export default function Page() {
+async function getProjects() {
+  try {
+    const entries = await client.getEntries({
+      content_type: "project",
+      order: ["-sys.createdAt"], // Sort by createdAt in descending order
+
+    });
+    return entries.items.map((item) => item.fields);
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    return [];
+  }
+}
+
+async function getBlogPosts() {
+  try {
+    const entries = await client.getEntries({
+      content_type: "blogPost",
+      order: ["-sys.createdAt"], // Sort by createdAt in descending order
+
+    });
+    return entries.items.map((item) => item.fields);
+  } catch (error) {
+    console.error("Error fetching blog posts:", error);
+    return [];
+  }
+}
+
+
+export default async function Page() {
+  const projects = await getProjects();
+  const blogPosts = await getBlogPosts();
   return (
     <main className="space-y-32">
       <section className="">
@@ -46,23 +76,12 @@ export default function Page() {
         <AnimateOnScroll hiddenClass="space-y-12 fadeFromLeft-hidden" showClass="fadeFromLeft-show">
           <h2 className="font-semibold mb-8 tracking-tighter">Projects</h2>
           <div className="space-y-3">
-            {allProjects
-            .sort((a, b) => {
-              if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
-                return -1;
-              }
-              return 1;
-            })
-            .map((project) => (
+            {projects.map((project) => (
                 <div>
-                  <a 
-                    key={project.slug}
-                    className="link"
-                    href={`${project.slug}`}
-                  >
-                    {project.title}
-                  </a>
-                  <p>{project.summary}</p>
+                  <Link href={`/projects/${project.slug}`} className="link">
+                    {String(project.name)}
+                  </Link>
+                  <p>{String(project.description)}</p>
                 </div>
             ))}
           </div>
@@ -72,23 +91,12 @@ export default function Page() {
         <AnimateOnScroll hiddenClass="space-y-12 fadeFromLeft-hidden" showClass="fadeFromLeft-show">
           <h2 className="font-semibold mb-8 tracking-tighter">Blog</h2>
           <div className="space-y-3">
-            {allBlogs
-            .sort((a, b) => {
-              if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
-                return -1;
-              }
-              return 1;
-            })
-            .map((post) => (
+            {blogPosts.map((post) => (
                 <div>
-                  <a 
-                    key={post.slug}
-                    className="link"
-                    href={`${post.slug}`}
-                  >
-                    {post.title}
-                  </a>
-                  <p>{post.summary}</p>
+                  <Link href={`/blog/${post.slug}`} className="link">
+                    {String(post.name)}
+                  </Link>
+                  <p>{String(post.description)}</p>
                 </div>
             ))}
           </div>
