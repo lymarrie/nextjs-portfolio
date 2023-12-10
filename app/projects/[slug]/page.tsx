@@ -1,54 +1,78 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Mdx } from 'app/components/mdx';
-import { allProjects } from 'contentlayer/generated';
 import Balancer from 'react-wrap-balancer';
-import { getViewsCount } from 'lib/metrics';
-import { Suspense } from 'react';
+import client from "../../../utils/contentful";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
+import {materialDark} from 'react-syntax-highlighter/dist/esm/styles/prism';
+
 
 export const dynamic = 'force-static';
 
-export async function generateMetadata({
-  params,
-}): Promise<Metadata | undefined> {
-  const post = allProjects.find((post) => post.slug === `projects/${params.slug}`);
-  if (!post) {
-    return;
+const MarkdownRenderer = ({ content }) => {
+    return (
+        <>
+            <article className="prose prose-quoteless prose-neutral prose-invert">
+                <ReactMarkdown 
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    code(props) {
+                      const {children, className, node, ...rest} = props
+                      const match = /language-(\w+)/.exec(className || '')
+                      return match ? (
+                        <SyntaxHighlighter
+                          {...rest}
+                          PreTag="div"
+                          children={String(children).replace(/\n$/, '')}
+                          language={match[1]}
+                          style={materialDark}
+                        />
+                      ) : (
+                        <code {...rest} className={className}>
+                          {children}
+                        </code>
+                      )
+                    }
+                  }}
+                >
+                  {content}
+                </ReactMarkdown>
+            </article>
+        </>
+    );
+};
+
+export async function generateStaticParams() {
+    const entries = await client.getEntries({
+      content_type: "project",
+    });
+
+    // console.log(entries.items[0])
+
+    return entries.items.map((item) => ({
+      params: {
+        slug: item.fields.slug
+      },
+    }));
   }
 
-  const {
-    title,
-    publishedAt: publishedTime,
-    summary: description,
-    image,
-    slug,
-  } = post;
-  const ogImage = image
-    ? `https://lucmarrie.com/${image}`
-    : `https://lucmarrie.com/og?title=${title}`;
+async function getProject({ params }) {
+try {
+    const slug = params.slug;
 
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: 'article',
-      publishedTime,
-      url: `https://lucmarrie.com/blog/${slug}`,
-      images: [
-        {
-          url: ogImage,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: [ogImage],
-    },
-  };
+    // Find the entry where the slug matches
+    const entry = (await client.getEntries({
+    content_type: "project",
+    "fields.slug": slug,
+    })).items[0];
+
+    return entry?.fields || null;
+} catch (error) {
+    console.error("Error fetching project:", error);
+    return null;
+}
 }
 
 function formatDate(date: string) {
@@ -80,31 +104,85 @@ function formatDate(date: string) {
   return `${fullDate} (${formattedDate})`;
 }
 
-export default function Project({ params }) {
-  const post = allProjects.find((post) => post.slug === `projects/${params.slug}`);
+// export async function generateMetadata({
+//     params,
+//   }): Promise<Metadata | undefined> {
+//     const post = allBlogs.find((post) => post.slug === params.slug);
+//     if (!post) {
+//       return;
+//     }
+  
+//     const {
+//       title,
+//       publishedAt: publishedTime,
+//       summary: description,
+//       image,
+//       slug,
+//     } = post;
+//     const ogImage = image
+//       ? `https://lucmarrie.com/${image}`
+//       : `https://lucmarrie.com/og?title=${title}`;
+  
+//     return {
+//       title,
+//       description,
+//       openGraph: {
+//         title,
+//         description,
+//         type: 'article',
+//         publishedTime,
+//         url: `https://lucmarrie.com/blog/${slug}`,
+//         images: [
+//           {
+//             url: ogImage,
+//           },
+//         ],
+//       },
+//       twitter: {
+//         card: 'summary_large_image',
+//         title,
+//         description,
+//         images: [ogImage],
+//       },
+//     };
+//   }
 
-  if (!post) {
+export default async function Project({ params }) {
+
+    // const entries = await client.getEntries({
+    //     content_type: "blogPost",
+    // });    
+    
+    // console.log(params);
+    // const post = getBlogPost({params});
+    // const post = entries.find((post) => post.slug === `blog/${params.slug}`);
+
+    const project = await getProject({ params });
+    // console.log(project);
+//   const post = allBlogs.find((post) => post.slug === `blog/${params.slug}`);
+
+  if (!project) {
     notFound();
   }
 
   return (
     <section>
-      <script
+      {/* <script
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(post.structuredData),
         }}
-      ></script>
+      ></script> */}
       <h1 className="font-semibold tracking-tighter max-w-[650px]">
-        <Balancer>{post.title}</Balancer>
+        <Balancer>{JSON.stringify(project.name)}</Balancer>
       </h1>
       <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
         {/* <p className="text-sm text-neutral-400 dark:text-neutral-400">
           {formatDate(post.publishedAt)}
         </p> */}
       </div>
-      <Mdx code={post.body.code} />
+      <MarkdownRenderer content={project.markdown} />
     </section>
   );
 }

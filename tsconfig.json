@@ -14,9 +14,9 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "baseUrl": ".",
-    "paths": {
-      "contentlayer/generated": ["./.contentlayer/generated"]
-    },
+    // "paths": {
+    //   "contentlayer/generated": ["./.contentlayer/generated"]
+    // },
     "incremental": true,
     "plugins": [
       {
@@ -29,8 +29,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".contentlayer/generated"
+    ".next/types/**/*.ts"
+    // ".contentlayer/generated"
   ],
   "exclude": ["node_modules"]
 }

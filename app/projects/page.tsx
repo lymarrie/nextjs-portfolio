@@ -1,42 +1,49 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
-import { Suspense } from 'react';
-import { allProjects } from 'contentlayer/generated';
 import AnimateOnScroll from 'app/components/AnimateOnScroll';
+import client from "../../utils/contentful";
+
+
 
 export const metadata: Metadata = {
-  title: 'Projects',
+  title: 'Project',
   description: 'Read my thoughts on software development, design, and more.',
 };
 
-export default function ProjectsPage() {
+async function getProjects() {
+    try {
+      const entries = await client.getEntries({
+        content_type: "project",
+        order: ["-sys.createdAt"],
+      });
+  
+      return entries.items.map((item) => item.fields);
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+      return [];
+    }
+  }
+
+
+export default async function ProjectPage() {
+  const projects = await getProjects();
+
   return (
     <section className="" style={{minHeight:"40vh"}}>
       <AnimateOnScroll>
         <h1 className="block font-semibold mb-8 tracking-tighter white-text-shadow">Projects</h1>
         <div className="space-y-3">
-          {allProjects
-              .sort((a, b) => {
-                if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
-                  return -1;
-                }
-                return 1;
-              })
-              .map((post) => (
-                  <div>
-                    <a 
-                      key={post.slug}
-                      className="link"
-                      href={`/${post.slug}`}
-                    >
-                      {post.title}
-                    </a>
-                    <p>{post.summary}</p>
-                  </div>
-              ))}
+        {projects.map((project) => (
+          <div>
+            <Link href={`/projects/${project.slug}`} className="link">
+              {String(project.name)}
+            </Link>
+            <p>{String(project.description)}</p>
+          </div>
+        ))}
         </div>
       </AnimateOnScroll>
     </section>
   );
 }
+
