@@ -6,6 +6,9 @@ import client from "../../utils/contentful";
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Read my thoughts on software development, design, and more.',
+  openGraph: {
+    images: 'https://lucmarrie.com/hiroshi-nagai-4.png'
+  }
 };
 
 async function getBlogPosts() {

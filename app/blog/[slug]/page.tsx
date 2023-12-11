@@ -12,34 +12,34 @@ export const dynamic = 'force-static';
 
 const MarkdownRenderer = ({ content }) => {
     return (
-        <>
-          <article className="prose prose-quoteless prose-neutral prose-invert">
-              <ReactMarkdown 
-                remarkPlugins={[remarkGfm]}
-                components={{
-                  code(props) {
-                    const {children, className, node, ...rest} = props
-                    const match = /language-(\w+)/.exec(className || '')
-                    return match ? (
-                      <SyntaxHighlighter
-                        {...rest}
-                        PreTag="div"
-                        children={String(children).replace(/\n$/, '')}
-                        language={match[1]}
-                        style={materialDark}
-                      />
-                    ) : (
-                      <code {...rest} className={className}>
-                        {children}
-                      </code>
-                    )
-                  }
-                }}
-              >
-                {content}
-              </ReactMarkdown>
-          </article>
-        </>
+      <>
+        <article className="prose prose-quoteless prose-neutral prose-invert">
+            <ReactMarkdown 
+              remarkPlugins={[remarkGfm]}
+              components={{
+                code(props) {
+                  const {children, className, node, ...rest} = props
+                  const match = /language-(\w+)/.exec(className || '')
+                  return match ? (
+                    <SyntaxHighlighter
+                      {...rest}
+                      PreTag="div"
+                      children={String(children).replace(/\n$/, '')}
+                      language={match[1]}
+                      style={materialDark}
+                    />
+                  ) : (
+                    <code {...rest} className={className}>
+                      {children}
+                    </code>
+                  )
+                }
+              }}
+            >
+              {content}
+            </ReactMarkdown>
+        </article>
+      </>
     );
 };
 
