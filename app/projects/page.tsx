@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'Project',
   description: 'Explore my current projects in computer science, web development, and data science.',
   openGraph: {
-    images: 'https://lucmarrie.com/hiroshi-nagai-1.png'
+    images: 'https://lucmarrie.com/hiroshi-nagai-1.jpeg'
   }
 };
 
