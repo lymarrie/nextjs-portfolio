@@ -10,39 +10,6 @@ import {materialDark} from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export const dynamic = 'force-static';
 
-const MarkdownRenderer = ({ content }) => {
-    return (
-      <>
-        <article className="prose prose-quoteless prose-neutral prose-invert">
-            <ReactMarkdown 
-              remarkPlugins={[remarkGfm]}
-              components={{
-                code(props) {
-                  const {children, className, node, ...rest} = props
-                  const match = /language-(\w+)/.exec(className || '')
-                  return match ? (
-                    <SyntaxHighlighter
-                      {...rest}
-                      PreTag="div"
-                      children={String(children).replace(/\n$/, '')}
-                      language={match[1]}
-                      style={materialDark}
-                    />
-                  ) : (
-                    <code {...rest} className={className}>
-                      {children}
-                    </code>
-                  )
-                }
-              }}
-            >
-              {content}
-            </ReactMarkdown>
-        </article>
-      </>
-    );
-};
-
 export async function generateStaticParams() {
     const entries = await client.getEntries({
       content_type: "blogPost",
@@ -130,6 +97,39 @@ export async function generateMetadata({ params }): Promise<Metadata | undefined
   };
 }
 
+const MarkdownRenderer = ({ content }) => {
+  return (
+    <>
+      <article className="prose prose-quoteless prose-neutral prose-invert">
+          <ReactMarkdown 
+            remarkPlugins={[remarkGfm]}
+            components={{
+              code(props) {
+                const {children, className, node, ...rest} = props
+                const match = /language-(\w+)/.exec(className || '')
+                return match ? (
+                  <SyntaxHighlighter
+                    {...rest}
+                    PreTag="div"
+                    children={String(children).replace(/\n$/, '')}
+                    language={match[1]}
+                    style={materialDark}
+                  />
+                ) : (
+                  <code {...rest} className={className}>
+                    {children}
+                  </code>
+                )
+              }
+            }}
+          >
+            {content}
+          </ReactMarkdown>
+      </article>
+    </>
+  );
+};
+
 export default async function BlogPost({ params }) {
   const post = await getBlogPost({ params });
   if (!post) {
@@ -138,21 +138,9 @@ export default async function BlogPost({ params }) {
 
   return (
     <section>
-      {/* <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(post.structuredData),
-        }}
-      ></script> */}
       <h1 className="font-semibold tracking-tighter max-w-[650px]">
         <Balancer>{JSON.stringify(post.name)}</Balancer>
       </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
-        {/* <p className="text-sm text-neutral-400 dark:text-neutral-400">
-          {formatDate(post.publishedAt)}
-        </p> */}
-      </div>
       <MarkdownRenderer content={post.markdown} />
     </section>
   );

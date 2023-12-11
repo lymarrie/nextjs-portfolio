@@ -140,21 +140,9 @@ export default async function Project({ params }) {
 
   return (
     <section>
-      {/* <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(post.structuredData),
-        }}
-      ></script> */}
       <h1 className="font-semibold tracking-tighter max-w-[650px]">
         <Balancer>{JSON.stringify(project.name)}</Balancer>
       </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
-        {/* <p className="text-sm text-neutral-400 dark:text-neutral-400">
-          {formatDate(post.publishedAt)}
-        </p> */}
-      </div>
       <MarkdownRenderer content={project.markdown} />
     </section>
   );

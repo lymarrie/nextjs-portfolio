@@ -6,38 +6,34 @@ import client from "../utils/contentful";
 const quoteText = "Some people want it to happen, some wish it would happen, others make it happen.";
 const quoteAuthor = "Michael Jordan 🏀";
 
-async function getProjects() {
+async function getEntries() {
   try {
     const entries = await client.getEntries({
-      content_type: "project",
-      order: ["-sys.createdAt"], // Sort by createdAt in descending order
-
+      order: ["-sys.createdAt"],
     });
-    return entries.items.map((item) => item.fields);
-  } catch (error) {
-    console.error("Error fetching projects:", error);
-    return [];
-  }
-}
 
-async function getBlogPosts() {
-  try {
-    const entries = await client.getEntries({
-      content_type: "blogPost",
-      order: ["-sys.createdAt"], // Sort by createdAt in descending order
+    const projects:any = [];
+    const blogPosts:any = [];
 
+    entries.items.forEach((item) => {
+      const fields = item.fields;
+      if (item.sys.contentType.sys.id === 'project') {
+        projects.push(fields);
+      } else if (item.sys.contentType.sys.id === 'blogPost') {
+        blogPosts.push(fields);
+      }
     });
-    return entries.items.map((item) => item.fields);
+
+    return { projects, blogPosts };
   } catch (error) {
-    console.error("Error fetching blog posts:", error);
-    return [];
+    console.error("Error fetching entries:", error);
+    return { projects: [], blogPosts: [] };
   }
 }
 
 
 export default async function Page() {
-  const projects = await getProjects();
-  const blogPosts = await getBlogPosts();
+  const { projects, blogPosts } = await getEntries();
   return (
     <main className="space-y-32">
       <section className="">

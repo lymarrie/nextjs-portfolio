@@ -120,7 +120,7 @@ h4 {
 
 .prose img {
   /* Don't apply styles to next/image */
-  @apply m-0 rounded-lg shadow-gray-600 shadow-md;
+  @apply m-0 rounded-lg shadow-gray-600 shadow-md block mx-auto;
 }
 
 img[alt*=normalgif] { 
