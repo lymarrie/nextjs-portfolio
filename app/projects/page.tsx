@@ -4,7 +4,7 @@ import AnimateOnScroll from 'app/components/AnimateOnScroll';
 import client from "../../utils/contentful";
 
 export const metadata: Metadata = {
-  title: 'Project',
+  title: 'Projects',
   description: 'Explore my current projects in computer science, web development, and data science.',
   openGraph: {
     images: 'https://lucmarrie.com/hiroshi-nagai-1.jpeg'
