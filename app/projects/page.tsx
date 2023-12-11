@@ -7,7 +7,7 @@ import client from "../../utils/contentful";
 
 export const metadata: Metadata = {
   title: 'Project',
-  description: 'Read my thoughts on software development, design, and more.',
+  description: 'Explore my current projects in computer science, web development, and data science.',
 };
 
 async function getProjects() {

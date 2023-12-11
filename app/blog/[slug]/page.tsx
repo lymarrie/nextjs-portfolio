@@ -103,63 +103,35 @@ function formatDate(date: string) {
   return `${fullDate} (${formattedDate})`;
 }
 
-// export async function generateMetadata({
-//     params,
-//   }): Promise<Metadata | undefined> {
-//     const post = allBlogs.find((post) => post.slug === params.slug);
-//     if (!post) {
-//       return;
-//     }
-  
-//     const {
-//       title,
-//       publishedAt: publishedTime,
-//       summary: description,
-//       image,
-//       slug,
-//     } = post;
-//     const ogImage = image
-//       ? `https://lucmarrie.com/${image}`
-//       : `https://lucmarrie.com/og?title=${title}`;
-  
-//     return {
-//       title,
-//       description,
-//       openGraph: {
-//         title,
-//         description,
-//         type: 'article',
-//         publishedTime,
-//         url: `https://lucmarrie.com/blog/${slug}`,
-//         images: [
-//           {
-//             url: ogImage,
-//           },
-//         ],
-//       },
-//       twitter: {
-//         card: 'summary_large_image',
-//         title,
-//         description,
-//         images: [ogImage],
-//       },
-//     };
-//   }
+export async function generateMetadata({ params }): Promise<Metadata | undefined> {
+  const entry = (await client.getEntries({
+    content_type: "blogPost",
+    "fields.slug": params.slug,
+    })).items[0];
+  if (!entry) {
+    return;
+  };
+
+  return {
+    title: String(entry.fields.name),
+    description: String(entry.fields.description),
+    metadataBase: new URL("https://lucmarrie.com"),
+    openGraph: {
+      title: String(entry.fields.name),
+      description: String(entry.fields.description),
+      type: 'article',
+      url: `https://lucmarrie.com/blog/${params.slug}`,
+      images: [
+        {
+          url: "https://www.lucmarrie.com/hiroshi-nagai-3.png",
+        },
+      ],
+    },
+  };
+}
 
 export default async function BlogPost({ params }) {
-
-    // const entries = await client.getEntries({
-    //     content_type: "blogPost",
-    // });    
-    
-    // console.log(params);
-    // const post = getBlogPost({params});
-    // const post = entries.find((post) => post.slug === `blog/${params.slug}`);
-
-    const post = await getBlogPost({ params });
-    // console.log(blogPost);
-//   const post = allBlogs.find((post) => post.slug === `blog/${params.slug}`);
-
+  const post = await getBlogPost({ params });
   if (!post) {
     notFound();
   }
