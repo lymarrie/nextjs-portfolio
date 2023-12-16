@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import AnimateOnScroll from 'app/components/AnimateOnScroll';
+import CategoryTag from 'app/components/CategoryTag';
 import client from "../../utils/contentful";
 
 export const metadata: Metadata = {
@@ -32,12 +33,15 @@ export default async function BlogPage() {
     <section className="" style={{minHeight:"40vh"}}>
       <AnimateOnScroll>
         <h1 className="block font-semibold mb-8 tracking-tighter white-text-shadow">Blog</h1>
-        <div className="space-y-3">
+        <div className="space-y-10">
           {blogPosts.map((post) => (
-            <div>
-              <Link href={`/blog/${post.slug}`} className="link">
-                {String(post.name)}
-              </Link>
+            <div className="">
+              <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
+                <Link href={`/projects/${post.slug}`} className="link">
+                  {String(post.name)}
+                </Link>
+                <CategoryTag className="mt-2" category={post.category}></CategoryTag>
+              </div>
               <p>{String(post.description)}</p>
             </div>
           ))}

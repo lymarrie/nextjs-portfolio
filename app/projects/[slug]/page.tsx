@@ -17,7 +17,7 @@ export async function generateStaticParams() {
     content_type: "project",
   });
 
-  // console.log(entries.items[0])
+  console.log(entries.items[0])
 
   return entries.items.map((item) => ({
     params: {
