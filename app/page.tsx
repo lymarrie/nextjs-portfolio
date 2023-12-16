@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import AnimateOnScroll from './components/AnimateOnScroll';
+import CategoryTag from './components/CategoryTag';
 import client from "../utils/contentful";
 
 const quoteText = "Some people want it to happen, some wish it would happen, others make it happen.";
@@ -73,10 +74,13 @@ export default async function Page() {
           <h2 className="font-semibold mb-8 tracking-tighter">Projects</h2>
           <div className="space-y-3">
             {projects.map((project) => (
-                <div>
-                  <Link href={`/projects/${project.slug}`} className="link">
-                    {String(project.name)}
-                  </Link>
+                <div className="">
+                  <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
+                    <Link href={`/projects/${project.slug}`} className="link">
+                      {String(project.name)}
+                    </Link>
+                    <CategoryTag className="" category={project.category}></CategoryTag>
+                  </div>
                   <p>{String(project.description)}</p>
                 </div>
             ))}
@@ -88,10 +92,13 @@ export default async function Page() {
           <h2 className="font-semibold mb-8 tracking-tighter">Blog</h2>
           <div className="space-y-3">
             {blogPosts.map((post) => (
-                <div>
-                  <Link href={`/blog/${post.slug}`} className="link">
-                    {String(post.name)}
-                  </Link>
+                <div className="">
+                  <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
+                    <Link href={`/projects/${post.slug}`} className="link">
+                      {String(post.name)}
+                    </Link>
+                    <CategoryTag className="" category={post.category}></CategoryTag>
+                  </div>
                   <p>{String(post.description)}</p>
                 </div>
             ))}
