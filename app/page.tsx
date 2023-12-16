@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import AnimateOnScroll from './components/AnimateOnScroll';
+import Ingredients from './components/Ingredients';
 import CategoryTag from './components/CategoryTag';
 import client from "../utils/contentful";
 
@@ -36,7 +37,7 @@ async function getEntries() {
 export default async function Page() {
   const { projects, blogPosts } = await getEntries();
   return (
-    <main className="space-y-32">
+    <main className="space-y-28">
       <section className="">
         <AnimateOnScroll>
           <div>
@@ -72,9 +73,9 @@ export default async function Page() {
       <section>
         <AnimateOnScroll hiddenClass="space-y-12 fadeFromLeft-hidden" showClass="fadeFromLeft-show">
           <h2 className="font-semibold mb-8 tracking-tighter">Projects</h2>
-          <div className="space-y-3">
+          <div className="space-y-10">
             {projects.map((project) => (
-                <div className="">
+                <div className="space-y-3">
                   <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
                     <Link href={`/projects/${project.slug}`} className="link">
                       {String(project.name)}
@@ -82,6 +83,7 @@ export default async function Page() {
                     <CategoryTag className="" category={project.category}></CategoryTag>
                   </div>
                   <p>{String(project.description)}</p>
+                  <Ingredients ingredients={project.ingredients} />
                 </div>
             ))}
           </div>
