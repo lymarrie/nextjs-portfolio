@@ -43,12 +43,12 @@ export default function RootLayout({
     <html
       lang="en"
       className={clsx(
-        'text-white bg-[#111010] dark:text-white dark:bg-[#111010]',
+        'text-white bg-black',
         GeistSans.variable,
         GeistMono.variable
       )}
     >
-      <body className="antialiased max-w-2xl mb-40 flex flex-col sm:flex-row mx-8 mt-8 md:mx-auto">
+      <body className="antialiased mb-40 flex flex-col sm:flex-row mx-8 mt-8 md:mx-auto">
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
           <Sidebar />
           {children}
