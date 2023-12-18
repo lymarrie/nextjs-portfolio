@@ -10,7 +10,7 @@ const customAnimation = keyframes`
   from {
     opacity: 0;
     filter: blur(5px);
-    transform: translateX(-15%);
+    transform: translateX(-10%);
   }
 
   to {

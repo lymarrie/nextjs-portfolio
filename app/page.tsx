@@ -97,7 +97,7 @@ export default async function Page() {
             <ScrollEffect effect="reveal" cascade={true} duration={600} damping={0.5} triggerOnce={true}>
               <h2 className="font-semibold mb-8 tracking-tighter">Projects</h2>
               <div className="space-y-10">
-                <ScrollEffect effect="reveal" cascade={true} duration={600} triggerOnce={true}>
+                <ScrollEffect effect="fade" cascade={true} duration={600} triggerOnce={true}>
                 {projects.map((project) => (
                     <div className="space-y-3">
                       <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
@@ -120,7 +120,7 @@ export default async function Page() {
             <ScrollEffect effect="reveal" cascade={true} duration={600} damping={0.5} triggerOnce={true}>
               <h2 className="font-semibold mb-8 tracking-tighter">Blog</h2>
               <div className="space-y-10">
-                <ScrollEffect effect="reveal" cascade={true} duration={600} triggerOnce={true}>
+                <ScrollEffect effect="fade" cascade={true} duration={600} triggerOnce={true}>
                   {blogPosts.map((post) => (
                       <div className="">
                         <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
@@ -141,7 +141,7 @@ export default async function Page() {
             <ScrollEffect effect="reveal" cascade={true} duration={600} damping={0.5} triggerOnce={true}>
               <h2 className="font-semibold mb-8 tracking-tighter">Education</h2>
                 <div className="flex items-center">
-                  <ScrollEffect effect="reveal" cascade={true} duration={600} damping={0.5} triggerOnce={true}>
+                  <ScrollEffect effect="reveal" cascade={true} duration={600} damping={0.8} triggerOnce={true}>
                     <div className="mr-4 flex-shrink-0">
                       <Image 
                         src="/colby-college.png"
