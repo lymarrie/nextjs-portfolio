@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import AnimateOnScroll from 'app/components/AnimateOnScroll';
+import ScrollEffect from 'app/components/ScrollEffect';
 import CategoryTag from 'app/components/CategoryTag';
 import Ingredients from 'app/components/Ingredients';
 import client from "../../utils/contentful";
+import { Fade } from "react-awesome-reveal";
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -33,23 +35,27 @@ export default async function ProjectPage() {
 
   return (
     <section className="" style={{minHeight:"40vh"}}>
-      <AnimateOnScroll>
+      <ScrollEffect effect="reveal" cascade={true} duration={800} triggerOnce={true}>
         <h1 className="block font-semibold mb-8 tracking-tighter white-text-shadow">Projects</h1>
         <div className="space-y-10">
-        {projects.map((project) => (
-          <div className="space-y-3">
-            <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
-              <Link href={`/projects/${project.slug}`} className="link">
-                {String(project.name)}
-              </Link>
-              <CategoryTag className="" category={project.category}></CategoryTag>
-            </div>
-            <p className="text-gray-300">{String(project.description)}</p>
-            <Ingredients ingredients={project.ingredients} />
-          </div>
-        ))}
+          <ScrollEffect effect="reveal" cascade={true} duration={800} damping={0.6} triggerOnce={true}>
+            {projects.map((project) => (
+              <div className="space-y-3">
+                {/* <ScrollEffect effect="fade" cascade={true} duration={700}> */}
+                  <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
+                    <Link href={`/projects/${project.slug}`} className="link">
+                      {String(project.name)}
+                    </Link>
+                    <CategoryTag className="" category={project.category}></CategoryTag>
+                  </div>
+                  <p className="text-gray-300">{String(project.description)}</p>
+                  <Ingredients ingredients={project.ingredients} />
+                {/* </ScrollEffect> */}
+              </div>
+            ))}
+          </ScrollEffect>
         </div>
-      </AnimateOnScroll>
+      </ScrollEffect>
     </section>
   );
 }

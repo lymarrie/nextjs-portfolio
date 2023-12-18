@@ -35,16 +35,8 @@ export default function Footer() {
   }
   
     return(
-    <AnimateOnScroll hiddenClass="fadeFromLeft-hidden" showClass="fadeFromLeft-show">
+      <AnimateOnScroll hiddenClass="fadeFromLeft-hidden" showClass="fadeFromLeft-show">
       <footer className="container mt-32">
-        {/* <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8"> */}
-          {/* <nav className="-mb-6 columns-2 space-y-2 md:flex md:justify-center md:text-center md:space-x-6 md:space-y-0 lg:space-x-12" aria-label="Footer">
-          <Suspense fallback={null}>
-            {Object.entries(navItems).map(([path, { name }]) => {
-              return <NavItem key={path} path={path} name={name} />;
-            })} 
-          </Suspense>
-          </nav> */}
           <div className="">
             {navigation.social.map((item) => (
               <a key={item.name} href={item.href} target="_blank" className="transition-all flex  space-x-4 text-white-700 hover:text-cyan-200">
@@ -54,10 +46,6 @@ export default function Footer() {
               </a>
             ))}
           </div>
-          {/* <p className="mt-10 text-center text-sm leading-5 text-gray-200">
-            &copy; 2023 Luc Marrie. All rights reserved.
-          </p> */}
-        {/* </div> */}
       </footer>
     </AnimateOnScroll>
     )
