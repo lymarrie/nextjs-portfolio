@@ -73,7 +73,7 @@ export default async function Page() {
               </ScrollEffect>
             </div>
             <div className="quote-mobile pt-20 sm:px-10">
-              <ScrollEffect effect="reveal" cascade={true} duration={800} damping={0.5} triggerOnce={true}>
+              <ScrollEffect effect="reveal" cascade={true} duration={1000} delay={500} triggerOnce={true}>
                   <p className="block font-semibold tracking-wide leading-loose drop-shadow-[0_5px_3px_rgba(0,0,0,1)] sm:hidden"><em>"{quoteText}"</em> - <strong>{quoteAuthor}</strong></p>
               </ScrollEffect>
             </div>
@@ -83,11 +83,11 @@ export default async function Page() {
             <ScrollEffect effect="reveal" cascade={true} duration={800} damping={0.5} triggerOnce={true} >
               <h2 className="font-semibold mb-8 tracking-tighter">Biography</h2>
               <div className="space-y-5">
-                {/* <ScrollEffect effect="fade" cascade={true} duration={500} damping={0.5} triggerOnce={true}> */}
+                <ScrollEffect effect="reveal" cascade={true} duration={500} damping={0.5} triggerOnce={true}>
                   <p>I'm a product manager at <a href="https://www.yext.com/" className="link" target="_blank">Yext</a>, based out of  🗽 New York City.</p>
                   <p>At Yext, I oversee product development for <a href="https://www.yext.com/platform/pages" className="link" target="_blank">Pages</a>: a full-stack development framework for enterprise web applications.</p>
                   <p>Outside of work, I'm a freelance frontend developer, photographer 📸, and soccer hooligan.</p>
-                {/* /</ScrollEffect> */}
+                /</ScrollEffect>
               </div>
             </ScrollEffect>
             {/* </AnimateOnScroll> */}
@@ -120,7 +120,7 @@ export default async function Page() {
             <ScrollEffect effect="fade" cascade={true} duration={800} triggerOnce={true}>
               <h2 className="font-semibold mb-8 tracking-tighter">Blog</h2>
               <div className="space-y-10">
-                <ScrollEffect effect="fade" cascade={true} duration={800} triggerOnce={true}>
+                <ScrollEffect effect="reveal" cascade={true} duration={800} triggerOnce={true}>
                   {blogPosts.map((post) => (
                       <div className="">
                         <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
