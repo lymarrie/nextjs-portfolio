@@ -52,7 +52,7 @@ export default async function Page() {
         Your browser does not support the video tag.
       </video>
       <div className="space-y-28">
-        {/* <ScrollEffect effect="reveal" cascade={true} duration={600} damping={0.6} triggerOnce={true}> */}
+        <ScrollEffect effect="reveal" cascade={true} duration={700} triggerOnce={true}>
           <section className="">
             <div className="container z-10">
               <ScrollEffect effect="reveal" cascade={true} duration={600} triggerOnce={true}>
@@ -94,10 +94,10 @@ export default async function Page() {
           </section>
           <section>
             {/* <AnimateOnScroll hiddenClass="space-y-12 fadeFromLeft-hidden" showClass="fadeFromLeft-show"> */}
-            <ScrollEffect effect="reveal" cascade={true} duration={600} damping={0.5} triggerOnce={true}>
+            <ScrollEffect effect="reveal" cascade={true} duration={600} triggerOnce={true}>
               <h2 className="font-semibold mb-8 tracking-tighter">Projects</h2>
               <div className="space-y-10">
-                <ScrollEffect effect="fade" cascade={true} duration={600} triggerOnce={true}>
+                <ScrollEffect effect="reveal" cascade={true} duration={800} triggerOnce={true}>
                 {projects.map((project) => (
                     <div className="space-y-3">
                       <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
@@ -117,10 +117,10 @@ export default async function Page() {
           </section>
           <section>
             {/* <AnimateOnScroll hiddenClass="space-y-12 fadeFromLeft-hidden" showClass="fadeFromLeft-show"> */}
-            <ScrollEffect effect="reveal" cascade={true} duration={600} damping={0.5} triggerOnce={true}>
+            <ScrollEffect effect="reveal" cascade={true} duration={600} triggerOnce={true}>
               <h2 className="font-semibold mb-8 tracking-tighter">Blog</h2>
               <div className="space-y-10">
-                <ScrollEffect effect="fade" cascade={true} duration={600} triggerOnce={true}>
+                <ScrollEffect effect="reveal" cascade={true} duration={600} triggerOnce={true}>
                   {blogPosts.map((post) => (
                       <div className="">
                         <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
@@ -164,7 +164,7 @@ export default async function Page() {
                 </div>
               </ScrollEffect>
           </section>
-      {/* </ScrollEffect> */}
+      </ScrollEffect>
       </div>
     </main>
   );
