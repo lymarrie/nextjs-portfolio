@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import ScrollEffect from 'app/components/ScrollEffect';
 import Balancer from 'react-wrap-balancer';
 import client from "../../../utils/contentful";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {materialDark} from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { ChevronLeftIcon } from '@heroicons/react/20/solid';
 
 
 export const dynamic = 'force-static';
@@ -137,11 +139,19 @@ export default async function BlogPost({ params }) {
   }
 
   return (
-    <div className="max-2xl md:mx-auto">
-      <h1 className="font-semibold tracking-tighter max-w-[650px]">
-        <Balancer>{JSON.stringify(post.name)}</Balancer>
-      </h1>
-      <MarkdownRenderer content={post.markdown} />
+    <div className="max-2xl space-y-20 md:mx-auto">
+      <ScrollEffect effect="reveal" cascade={true} duration={500} triggerOnce={true}>
+        <h1 className="font-semibold tracking-tighter max-w-[650px]">
+          <Balancer>{JSON.stringify(post.name)}</Balancer>
+        </h1>
+        <MarkdownRenderer content={post.markdown} />
+      </ScrollEffect>
+      <ScrollEffect effect="fade" duration={900} triggerOnce={true}>
+        <a href="/blog" className="text-xl font-semibold bg-cyan-600 p-4 rounded-lg flex space-x-3 mx-auto w-52 items-center duration-300 ease-in-out hover:scale-105 hover:bg-cyan-500  ">
+          <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+          <span>Back to Blog</span>
+        </a>
+      </ScrollEffect>
     </div>
   );
 }

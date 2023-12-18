@@ -7,8 +7,8 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {materialDark} from 'react-syntax-highlighter/dist/esm/styles/prism';
-import hiroshiNagai from '../../../public/hiroshi-nagai-3.png';
-
+import { ChevronLeftIcon } from '@heroicons/react/20/solid';
+import ScrollEffect from 'app/components/ScrollEffect';
 
 export const dynamic = 'force-static';
 
@@ -17,7 +17,7 @@ export async function generateStaticParams() {
     content_type: "project",
   });
 
-  console.log(entries.items[0])
+  // console.log(entries.items[0])
 
   return entries.items.map((item) => ({
     params: {
@@ -139,11 +139,19 @@ export default async function Project({ params }) {
   }
 
   return (
-    <div className="max-2xl md:mx-auto">
-      <h1 className="font-semibold tracking-tighter max-w-[650px]">
-        <Balancer>{JSON.stringify(project.name)}</Balancer>
-      </h1>
-      <MarkdownRenderer content={project.markdown} />
+    <div className="max-2xl space-y-20 md:mx-auto">
+      <ScrollEffect effect="reveal" cascade={true} duration={500} triggerOnce={true}>
+        <h1 className="font-semibold tracking-tighter max-w-[650px]">
+          <Balancer>{JSON.stringify(project.name)}</Balancer>
+        </h1>
+        <MarkdownRenderer content={project.markdown} />
+      </ScrollEffect>
+      <ScrollEffect effect="fade" duration={900} triggerOnce={true}>
+        <a href="/projects" className="text-xl font-semibold bg-cyan-600 p-4 rounded-lg flex space-x-3 mx-auto w-60 items-center duration-300 ease-in-out hover:scale-105 hover:bg-cyan-500  ">
+          <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+          <span>Back to Projects</span>
+        </a>
+      </ScrollEffect>
     </div>
   );
 }
