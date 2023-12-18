@@ -40,7 +40,7 @@ export default async function Page() {
     <main className="space-y-28">
      <video
         id="backgroundVideo"
-        className="hidden sm:block absolute top-0 left-0 object-cover w-full h-full z-0"
+        className="hidden md:block absolute top-0 left-0 object-cover w-full h-full z-0"
         autoPlay
         loop
         muted
