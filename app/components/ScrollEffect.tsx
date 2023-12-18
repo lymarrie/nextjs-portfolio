@@ -25,6 +25,7 @@ interface FadeSectionProps {
   duration?: number;
   direction?: string;
   triggerOnce?: boolean;
+  fraction?: number;
   cascade?: boolean;
   className?: string;
   damping?: number;
@@ -39,6 +40,7 @@ const ScrollEffect = (
         duration,
         direction = "",
         triggerOnce,
+        fraction,
         cascade,
         className,
         damping,
@@ -51,6 +53,7 @@ const ScrollEffect = (
         duration,
         direction,
         triggerOnce,
+        fraction,
         damping,
         delay,
         cascade,

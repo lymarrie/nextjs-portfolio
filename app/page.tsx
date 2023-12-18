@@ -52,10 +52,10 @@ export default async function Page() {
         Your browser does not support the video tag.
       </video>
       <div className="space-y-28">
-        <ScrollEffect effect="reveal" cascade={true} duration={700} triggerOnce={true}>
+        {/* <ScrollEffect effect="reveal" cascade={true} duration={1000} triggerOnce={true}> */}
           <section className="">
             <div className="container z-10">
-              <ScrollEffect effect="reveal" cascade={true} duration={600} triggerOnce={true}>
+              <ScrollEffect effect="reveal" cascade={true} duration={800} triggerOnce={true}>
                 <h1 className="block font-semibold mb-8 tracking-tighter drop-shadow-[0_5px_3px_rgba(0,0,0,1)]">Luc Yuki Marrie</h1>
                 <div className="flex justify-center">
                   <div className="quote">
@@ -73,14 +73,14 @@ export default async function Page() {
               </ScrollEffect>
             </div>
             <div className="quote-mobile pt-20 sm:px-10">
-              <ScrollEffect effect="reveal" cascade={true} duration={500} damping={0.5} triggerOnce={true}>
+              <ScrollEffect effect="reveal" cascade={true} duration={800} damping={0.5} triggerOnce={true}>
                   <p className="block font-semibold tracking-wide leading-loose drop-shadow-[0_5px_3px_rgba(0,0,0,1)] sm:hidden"><em>"{quoteText}"</em> - <strong>{quoteAuthor}</strong></p>
               </ScrollEffect>
             </div>
           </section>
           <section>
             {/* <AnimateOnScroll hiddenClass="space-y-12 fadeFromLeft-hidden" showClass="fadeFromLeft-show"> */}
-            <ScrollEffect effect="reveal" cascade={true} duration={600} damping={0.5} delay={300} triggerOnce={true}>
+            <ScrollEffect effect="reveal" cascade={true} duration={800} damping={0.5} triggerOnce={true} >
               <h2 className="font-semibold mb-8 tracking-tighter">Biography</h2>
               <div className="space-y-5">
                 {/* <ScrollEffect effect="fade" cascade={true} duration={500} damping={0.5} triggerOnce={true}> */}
@@ -94,7 +94,7 @@ export default async function Page() {
           </section>
           <section>
             {/* <AnimateOnScroll hiddenClass="space-y-12 fadeFromLeft-hidden" showClass="fadeFromLeft-show"> */}
-            <ScrollEffect effect="reveal" cascade={true} duration={600} triggerOnce={true}>
+            <ScrollEffect effect="reveal" cascade={true} duration={800} triggerOnce={true}>
               <h2 className="font-semibold mb-8 tracking-tighter">Projects</h2>
               <div className="space-y-10">
                 <ScrollEffect effect="reveal" cascade={true} duration={800} triggerOnce={true}>
@@ -117,10 +117,10 @@ export default async function Page() {
           </section>
           <section>
             {/* <AnimateOnScroll hiddenClass="space-y-12 fadeFromLeft-hidden" showClass="fadeFromLeft-show"> */}
-            <ScrollEffect effect="reveal" cascade={true} duration={600} triggerOnce={true}>
+            <ScrollEffect effect="fade" cascade={true} duration={800} triggerOnce={true}>
               <h2 className="font-semibold mb-8 tracking-tighter">Blog</h2>
               <div className="space-y-10">
-                <ScrollEffect effect="reveal" cascade={true} duration={600} triggerOnce={true}>
+                <ScrollEffect effect="fade" cascade={true} duration={800} triggerOnce={true}>
                   {blogPosts.map((post) => (
                       <div className="">
                         <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
@@ -137,11 +137,11 @@ export default async function Page() {
               </ScrollEffect>
             {/* </AnimateOnScroll> */}
           </section>
-          <section>
-            <ScrollEffect effect="reveal" cascade={true} duration={600} damping={0.5} triggerOnce={true}>
+          <section className="pb-40">
+            <ScrollEffect effect="reveal" cascade={true} duration={800} triggerOnce={true}>
               <h2 className="font-semibold mb-8 tracking-tighter">Education</h2>
                 <div className="flex items-center">
-                  <ScrollEffect effect="reveal" cascade={true} duration={600} damping={0.8} triggerOnce={true}>
+                  <ScrollEffect effect="reveal" cascade={true} duration={800} damping={0.8} triggerOnce={true}>
                     <div className="mr-4 flex-shrink-0">
                       <Image 
                         src="/colby-college.png"
@@ -164,7 +164,7 @@ export default async function Page() {
                 </div>
               </ScrollEffect>
           </section>
-      </ScrollEffect>
+      {/* </ScrollEffect> */}
       </div>
     </main>
   );
