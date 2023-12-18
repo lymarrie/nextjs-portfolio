@@ -137,7 +137,7 @@ export default async function BlogPost({ params }) {
   }
 
   return (
-    <div>
+    <div className="max-2xl md:mx-auto">
       <h1 className="font-semibold tracking-tighter max-w-[650px]">
         <Balancer>{JSON.stringify(post.name)}</Balancer>
       </h1>

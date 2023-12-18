@@ -139,7 +139,7 @@ export default async function Project({ params }) {
   }
 
   return (
-    <div>
+    <div className="max-2xl md:mx-auto">
       <h1 className="font-semibold tracking-tighter max-w-[650px]">
         <Balancer>{JSON.stringify(project.name)}</Balancer>
       </h1>
