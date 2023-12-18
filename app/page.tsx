@@ -52,10 +52,10 @@ export default async function Page() {
       <section className="">
         <AnimateOnScroll>
           <div className="container z-10">
-            <h1 className="block font-semibold mb-8 tracking-tighter drop-shadow-[0_5px_3px_rgba(0,0,0,1)]">Luc Yuki Marrie</h1>
+            <h1 className="block font-semibold mb-8 tracking-tighter drop-shadow-[0_5px_1px_rgba(0,0,0,1)]">Luc Yuki Marrie</h1>
             <div className="flex justify-center">
               <div className="quote">
-                <p className="hidden font-semibold tracking-wide leading-loose drop-shadow-[0_5px_3px_rgba(0,0,0,1)] sm:block pr-4 "><em>"{quoteText}"</em> - <strong>{quoteAuthor}</strong></p>
+                <p className="hidden font-semibold tracking-wide leading-loose drop-shadow-[0_3px_2px_rgba(0,0,0,1)] sm:block pr-4 "><em>"{quoteText}"</em> - <strong>{quoteAuthor}</strong></p>
               </div>
               <Image
                 src="/luc-space-pic.JPG"

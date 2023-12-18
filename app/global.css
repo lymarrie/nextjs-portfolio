@@ -40,7 +40,7 @@ h4 {
 }
 
 .white-shadow {
-  box-shadow: 0 0 30px rgba(183, 255, 248, 0.8);
+  box-shadow: 0 0 30px rgba(183, 255, 248, 1);
 }
 
 .white-text-shadow {
