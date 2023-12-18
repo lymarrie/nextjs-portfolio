@@ -38,7 +38,7 @@ export default async function ProjectPage() {
       <AnimateOnScroll>
         <h1 className="block font-semibold mb-8 tracking-tighter white-text-shadow">Projects</h1>
         <div className="space-y-10">
-          <ScrollEffect effect="reveal" cascade={true} duration={700} damping={0.4}>
+          <ScrollEffect effect="reveal" cascade={true} duration={1000} damping={0.2}>
             {projects.map((project) => (
               <div className="space-y-3">
                 {/* <ScrollEffect effect="fade" cascade={true} duration={700}> */}

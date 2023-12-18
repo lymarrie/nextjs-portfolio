@@ -35,7 +35,7 @@ export default async function BlogPage() {
       <AnimateOnScroll>
         <h1 className="block font-semibold mb-8 tracking-tighter white-text-shadow">Blog</h1>
         <div className="space-y-10">
-          <ScrollEffect effect="reveal" cascade={true} duration={700} damping={0.4}>
+          <ScrollEffect effect="reveal" cascade={true} duration={1000} damping={0.2}>
             {blogPosts.map((post) => (
               <div className="">
                 <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
