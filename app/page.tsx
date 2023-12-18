@@ -52,7 +52,7 @@ export default async function Page() {
         Your browser does not support the video tag.
       </video>
       <div className="space-y-28">
-        <ScrollEffect effect="reveal" cascade={true} duration={1000} damping={0.4} triggerOnce={true}>
+        <ScrollEffect effect="reveal" cascade={true} duration={700} damping={0.4} triggerOnce={true}>
           <section className="">
             <div className="container z-10">
               <ScrollEffect effect="reveal" cascade={true} duration={800} triggerOnce={true}>
