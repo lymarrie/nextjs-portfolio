@@ -35,10 +35,10 @@ export default async function ProjectPage() {
 
   return (
     <section className="" style={{minHeight:"40vh"}}>
-      <ScrollEffect effect="reveal" cascade={true} duration={800} triggerOnce={true}>
+      <ScrollEffect effect="reveal" cascade={true} duration={700} triggerOnce={true}>
         <h1 className="block font-semibold mb-8 tracking-tighter white-text-shadow">Projects</h1>
         <div className="space-y-10">
-          <ScrollEffect effect="reveal" cascade={true} duration={800} damping={0.6} triggerOnce={true}>
+          <ScrollEffect effect="reveal" cascade={true} duration={700} damping={0.5} triggerOnce={true}>
             {projects.map((project) => (
               <div className="space-y-3">
                 {/* <ScrollEffect effect="fade" cascade={true} duration={700}> */}
