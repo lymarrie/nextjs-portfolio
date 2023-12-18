@@ -38,25 +38,37 @@ export default async function Page() {
   const { projects, blogPosts } = await getEntries();
   return (
     <main className="space-y-28">
+     <video
+        id="backgroundVideo"
+        className="hidden md:block absolute top-0 left-0 object-cover w-full h-full z-0"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/moon.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <section className="">
         <AnimateOnScroll>
-          <div>
-            <h1 className="block font-semibold mb-8 tracking-tighter ">Luc Yuki Marrie</h1>
+          <div className="container z-10">
+            <h1 className="block font-semibold mb-8 tracking-tighter drop-shadow-[0_5px_3px_rgba(0,0,0,1)]">Luc Yuki Marrie</h1>
             <div className="flex justify-center">
               <div className="quote">
-                <p className="hidden sm:block pr-4"><em>"{quoteText}"</em> - <strong>{quoteAuthor}</strong></p>
+                <p className="hidden font-semibold tracking-wide leading-loose drop-shadow-[0_3px_2px_rgba(0,0,0,1)] sm:block pr-4 "><em>"{quoteText}"</em> - <strong>{quoteAuthor}</strong></p>
               </div>
               <Image
                 src="/luc-space-pic.JPG"
                 className="rounded-full white-shadow"
                 width={300}
                 height={300}
+                priority={true}
                 alt="Luc's Profile Pic"
               />
             </div>
           </div>
           <div className="quote-mobile pt-20 sm:px-10">
-            <p className="block sm:hidden"><em>"{quoteText}"</em> - <strong>{quoteAuthor}</strong></p>
+            <p className="block font-semibold tracking-wide leading-loose drop-shadow-[0_5px_3px_rgba(0,0,0,1)] sm:hidden"><em>"{quoteText}"</em> - <strong>{quoteAuthor}</strong></p>
           </div>
         </AnimateOnScroll>
       </section>
@@ -110,11 +122,14 @@ export default async function Page() {
       <section>
         <AnimateOnScroll hiddenClass="space-y-12 fadeFromLeft-hidden" showClass="fadeFromLeft-show">
           <h2 className="font-semibold mb-8 tracking-tighter">Education</h2>
-            <div className="flex">
+            <div className="flex items-center">
               <div className="mr-4 flex-shrink-0">
-                <img
-                  className="h-16 w-16"
-                  src="https://upload.wikimedia.org/wikipedia/en/thumb/2/27/Colby_College_seal.svg/1200px-Colby_College_seal.svg.png"
+                <Image 
+                  src="/colby-college.png"
+                  width={100}
+                  height={100}
+                  alt="Colby College Seal"
+                  loading="lazy"
                 />
               </div>
               <div>
