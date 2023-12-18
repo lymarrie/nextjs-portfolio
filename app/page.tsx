@@ -52,7 +52,7 @@ export default async function Page() {
       <section className="">
         <AnimateOnScroll>
           <div className="container z-10">
-            <h1 className="block font-semibold mb-8 tracking-tighter drop-shadow-[0_5px_1px_rgba(0,0,0,1)]">Luc Yuki Marrie</h1>
+            <h1 className="block font-semibold mb-8 tracking-tighter drop-shadow-[0_5px_3px_rgba(0,0,0,1)]">Luc Yuki Marrie</h1>
             <div className="flex justify-center">
               <div className="quote">
                 <p className="hidden font-semibold tracking-wide leading-loose drop-shadow-[0_3px_2px_rgba(0,0,0,1)] sm:block pr-4 "><em>"{quoteText}"</em> - <strong>{quoteAuthor}</strong></p>
@@ -62,6 +62,7 @@ export default async function Page() {
                 className="rounded-full white-shadow"
                 width={300}
                 height={300}
+                priority={true}
                 alt="Luc's Profile Pic"
               />
             </div>
@@ -121,11 +122,14 @@ export default async function Page() {
       <section>
         <AnimateOnScroll hiddenClass="space-y-12 fadeFromLeft-hidden" showClass="fadeFromLeft-show">
           <h2 className="font-semibold mb-8 tracking-tighter">Education</h2>
-            <div className="flex">
+            <div className="flex items-center">
               <div className="mr-4 flex-shrink-0">
-                <img
-                  className="h-16 w-16"
-                  src="https://upload.wikimedia.org/wikipedia/en/thumb/2/27/Colby_College_seal.svg/1200px-Colby_College_seal.svg.png"
+                <Image 
+                  src="/colby-college.png"
+                  width={100}
+                  height={100}
+                  alt="Colby College Seal"
+                  loading="lazy"
                 />
               </div>
               <div>
