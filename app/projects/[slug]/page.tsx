@@ -139,11 +139,11 @@ export default async function Project({ params }) {
   }
 
   return (
-    <section>
+    <div>
       <h1 className="font-semibold tracking-tighter max-w-[650px]">
         <Balancer>{JSON.stringify(project.name)}</Balancer>
       </h1>
       <MarkdownRenderer content={project.markdown} />
-    </section>
+    </div>
   );
 }

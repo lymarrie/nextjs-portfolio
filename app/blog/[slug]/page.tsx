@@ -137,11 +137,11 @@ export default async function BlogPost({ params }) {
   }
 
   return (
-    <section>
+    <div>
       <h1 className="font-semibold tracking-tighter max-w-[650px]">
         <Balancer>{JSON.stringify(post.name)}</Balancer>
       </h1>
       <MarkdownRenderer content={post.markdown} />
-    </section>
+    </div>
   );
 }
