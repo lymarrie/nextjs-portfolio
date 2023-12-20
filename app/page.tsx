@@ -51,11 +51,20 @@ export default async function Page() {
         <source src="/moon.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+      <Image
+        src="/stars-background.jpeg"
+        className='absolute top-0 left-0 object-cover w-full h-full z-0 md:hidden'
+        width={500}
+        height={500}
+        priority={true}
+        alt="Space static background."
+      >
+      </Image>
       <div className="space-y-28">
-        <ScrollEffect effect="reveal" cascade={true} duration={700} damping={0.4} triggerOnce={true}>
+        <ScrollEffect effect="reveal" cascade={true} duration={1000} damping={0.2} triggerOnce={true}>
           <section className="">
             <div className="container z-10">
-              <ScrollEffect effect="reveal" cascade={true} duration={800} triggerOnce={true}>
+              <ScrollEffect effect="reveal" cascade={true} duration={1000} triggerOnce={true}>
                 <h1 className="block font-semibold mb-8 tracking-tighter drop-shadow-[0_5px_3px_rgba(0,0,0,1)]">Luc Yuki Marrie</h1>
                 <div className="flex justify-center">
                   <div className="quote">
@@ -79,25 +88,22 @@ export default async function Page() {
             </div>
           </section>
           <section>
-            {/* <AnimateOnScroll hiddenClass="space-y-12 fadeFromLeft-hidden" showClass="fadeFromLeft-show"> */}
-            <ScrollEffect effect="reveal" cascade={true} duration={800} damping={0.5} triggerOnce={true} >
+            <ScrollEffect effect="reveal" cascade={true} duration={1000} triggerOnce={true} >
               <h2 className="font-semibold mb-8 tracking-tighter">Biography</h2>
               <div className="space-y-5">
-                <ScrollEffect effect="reveal" cascade={true} duration={500} damping={0.5} triggerOnce={true}>
+                <ScrollEffect effect="reveal" cascade={true} duration={1000} damping={0.3} triggerOnce={true}>
                   <p>I'm a product manager at <a href="https://www.yext.com/" className="link" target="_blank">Yext</a>, based out of  🗽 New York City.</p>
                   <p>At Yext, I oversee product development for <a href="https://www.yext.com/platform/pages" className="link" target="_blank">Pages</a>: a full-stack development framework for enterprise web applications.</p>
                   <p>Outside of work, I'm a freelance frontend developer, photographer 📸, and soccer hooligan.</p>
                 /</ScrollEffect>
               </div>
             </ScrollEffect>
-            {/* </AnimateOnScroll> */}
           </section>
           <section>
-            {/* <AnimateOnScroll hiddenClass="space-y-12 fadeFromLeft-hidden" showClass="fadeFromLeft-show"> */}
-            <ScrollEffect effect="reveal" cascade={true} duration={800} triggerOnce={true}>
+            <ScrollEffect effect="reveal" cascade={true} duration={1000} triggerOnce={true}>
               <h2 className="font-semibold mb-8 tracking-tighter">Projects</h2>
               <div className="space-y-10">
-                <ScrollEffect effect="reveal" cascade={true} duration={800} triggerOnce={true}>
+                <ScrollEffect effect="reveal" cascade={true} duration={1000} damping={0.3} triggerOnce={true}>
                 {projects.map((project) => (
                     <div className="space-y-3">
                       <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
@@ -113,14 +119,12 @@ export default async function Page() {
                 </ScrollEffect>
               </div>
             </ScrollEffect>
-            {/* </AnimateOnScroll> */}
           </section>
           <section>
-            {/* <AnimateOnScroll hiddenClass="space-y-12 fadeFromLeft-hidden" showClass="fadeFromLeft-show"> */}
-            <ScrollEffect effect="fade" cascade={true} duration={800} triggerOnce={true}>
+            <ScrollEffect effect="reveal" cascade={true} duration={1000} triggerOnce={true}>
               <h2 className="font-semibold mb-8 tracking-tighter">Blog</h2>
               <div className="space-y-10">
-                <ScrollEffect effect="reveal" cascade={true} duration={800} triggerOnce={true}>
+                <ScrollEffect effect="reveal" cascade={true} duration={1000} damping={0.3} triggerOnce={true}>
                   {blogPosts.map((post) => (
                       <div className="">
                         <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
@@ -135,13 +139,12 @@ export default async function Page() {
                 </ScrollEffect>
               </div>
               </ScrollEffect>
-            {/* </AnimateOnScroll> */}
           </section>
-          <section className="pb-40">
-            <ScrollEffect effect="reveal" cascade={true} duration={800} triggerOnce={true}>
+          <section className="">
+            <ScrollEffect effect="reveal" cascade={true} duration={1000} triggerOnce={true}>
               <h2 className="font-semibold mb-8 tracking-tighter">Education</h2>
                 <div className="flex items-center">
-                  <ScrollEffect effect="reveal" cascade={true} duration={800} damping={0.8} triggerOnce={true}>
+                  <ScrollEffect effect="reveal" cascade={true} duration={800} damping={0.4} triggerOnce={true}>
                     <div className="mr-4 flex-shrink-0">
                       <Image 
                         src="/colby-college.png"
