@@ -1,6 +1,7 @@
 import React from 'react';
 import NavItem from './nav-item';
 import AnimateOnScroll from './AnimateOnScroll';
+import ScrollEffect from './ScrollEffect';
 
 export default function Footer() {
 
@@ -35,7 +36,7 @@ export default function Footer() {
   }
   
     return(
-      <AnimateOnScroll hiddenClass="fadeFromLeft-hidden" showClass="fadeFromLeft-show">
+      <ScrollEffect effect="reveal" cascade={true} duration={1000}>
       <footer className="container mt-32">
           <div className="">
             {navigation.social.map((item) => (
@@ -47,6 +48,6 @@ export default function Footer() {
             ))}
           </div>
       </footer>
-    </AnimateOnScroll>
+    </ScrollEffect>
     )
 }

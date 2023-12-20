@@ -9,7 +9,7 @@ import { keyframes } from "@emotion/react";
 const customAnimation = keyframes`
   from {
     opacity: 0;
-    filter: blur(5px);
+    filter: blur(2px);
     transform: translateX(-10%);
   }
 

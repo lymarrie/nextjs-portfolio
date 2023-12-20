@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ScrollEffect from 'app/components/ScrollEffect';
 import Balancer from 'react-wrap-balancer';
@@ -147,10 +148,10 @@ export default async function BlogPost({ params }) {
         <MarkdownRenderer content={post.markdown} />
       </ScrollEffect>
       <ScrollEffect effect="fade" duration={900} triggerOnce={true}>
-        <a href="/blog" className="text-xl font-semibold bg-cyan-600 p-4 rounded-lg flex space-x-3 mx-auto w-52 items-center duration-300 ease-in-out hover:scale-105 hover:bg-cyan-500  ">
+        <Link href="/blog" className="text-xl font-semibold bg-cyan-600 p-4 rounded-lg flex space-x-3 mx-auto w-52 items-center duration-300 ease-in-out hover:scale-105 hover:bg-cyan-500  ">
           <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
           <span>Back to Blog</span>
-        </a>
+        </Link>
       </ScrollEffect>
     </div>
   );
