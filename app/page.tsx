@@ -128,7 +128,7 @@ export default async function Page() {
                   {blogPosts.map((post) => (
                       <div className="">
                         <div className="space-y-2 md:flex md:flex-row md:space-x-2 md:space-y-0">
-                          <Link href={`/projects/${post.slug}`} className="link">
+                          <Link href={`/blog/${post.slug}`} className="link">
                             {String(post.name)}
                           </Link>
                           <CategoryTag className="" category={post.category}></CategoryTag>
