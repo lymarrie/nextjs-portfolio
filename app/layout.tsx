@@ -5,6 +5,7 @@ import { GeistSans, GeistMono } from 'geist/font';
 import Sidebar from './components/sidebar';
 import { Analytics } from '@vercel/analytics/react';
 import Footer from './components/footer';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://lucmarrie.com/'),
@@ -52,6 +53,7 @@ export default function RootLayout({
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
           <Sidebar />
           {children}
+          <SpeedInsights/>
           <Analytics />
           <Footer />
         </main>
