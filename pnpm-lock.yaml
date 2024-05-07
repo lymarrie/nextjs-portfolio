@@ -50,6 +50,9 @@ dependencies:
   geist:
     specifier: ^1.0.0
     version: 1.0.0
+  google:
+    specifier: link:@next/third-parties/google
+    version: link:@next/third-parties/google
   googleapis:
     specifier: ^126.0.1
     version: 126.0.1

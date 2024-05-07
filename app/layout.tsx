@@ -6,6 +6,7 @@ import Sidebar from './components/sidebar';
 import { Analytics } from '@vercel/analytics/react';
 import Footer from './components/footer';
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://lucmarrie.com/'),
@@ -58,6 +59,7 @@ export default function RootLayout({
           <Footer />
         </main>
       </body>
+      <GoogleAnalytics gaId="G-ZQLGPBVGRV" />
     </html>
   );
 }
