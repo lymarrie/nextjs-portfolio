@@ -12,6 +12,7 @@
     "@contentful/rich-text-types": "^16.3.0",
     "@emotion/react": "^11.11.1",
     "@heroicons/react": "^2.0.18",
+    "@next/third-parties": "^14.2.3",
     "@planetscale/database": "^1.11.0",
     "@vercel/analytics": "^1.1.1",
     "@vercel/edge-config": "^0.4.1",
