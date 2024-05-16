@@ -60,7 +60,6 @@ export default function RootLayout({
           <Footer />
         </main>
       </body>
-      {/* <GoogleAnalytics gaId="G-ZQLGPBVGRV" /> */}
     </html>
   );
 }
