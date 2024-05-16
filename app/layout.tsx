@@ -6,7 +6,7 @@ import Sidebar from './components/sidebar';
 import { Analytics } from '@vercel/analytics/react';
 import Footer from './components/footer';
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { GoogleAnalytics } from '@next/third-parties/google';
+import { GoogleTagManager } from '@next/third-parties/google';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://lucmarrie.com/'),
@@ -50,6 +50,7 @@ export default function RootLayout({
         GeistMono.variable
       )}
     >
+      <GoogleTagManager gtmId="GTM-P8W4BJMH" />
       <body className="antialiased mb-40 flex flex-col sm:flex-row mx-8 mt-8 md:mx-auto">
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
           <Sidebar />
@@ -59,7 +60,7 @@ export default function RootLayout({
           <Footer />
         </main>
       </body>
-      <GoogleAnalytics gaId="G-ZQLGPBVGRV" />
+      {/* <GoogleAnalytics gaId="G-ZQLGPBVGRV" /> */}
     </html>
   );
 }
